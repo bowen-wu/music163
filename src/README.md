@@ -48,7 +48,9 @@ let {accessKey, secretKey} = content
 
 歌曲 ==> li ==> active
 
+
 上传区 ==> uploadArea ==> active ==> 正在上传歌曲
+上传区 ==> upload ==> active ==> 正在上传歌曲
 上传区 ==> uploadArea ==> deactive ==> 歌曲上传成功，编辑歌曲
 
 选择音乐 ==> upload ==> active ==> 正在上传歌曲
@@ -63,6 +65,26 @@ let {accessKey, secretKey} = content
 
 新建歌曲 ==> newSong.js ==> newSong
 
-上传歌曲 + 编辑歌曲 ==> uploadArea + editSong(upload-edit.js) ==> main
+上传歌曲 + 编辑歌曲 ==> uploadArea + editSong(uploadAndEdit.js) ==> main
+
+###### songList.js
+
+click ==> active[self] X
+click ==> uploadAndEdit(status ==> Edit)[eventHub] X
+click ==> uploadAndEdit ==> form 填充内容 
+
+###### newSong.js
+
+click ==> uploadAndEdit(status ==> Upload)[eventHub] ==> editSong(remove active) + uploadArea(remove deactive) X
+click ==> songList(li ==> remove active) X
+
+###### uploadAndEdit.js
+
+拖曳 + 点击上传时 ==> uploading active + uploadArea active + upload active X
+
+拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] X
+拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit) ==> form 填充内容 
+
+
 
 

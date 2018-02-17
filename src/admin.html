@@ -24,55 +24,9 @@
                 <h2>音乐库</h2>
                 <ul id="songList" class="songList">
                 </ul>
-                <div class="newSong">新建歌曲</div>
+                <div id="newSong" class="newSong"></div>
             </aside>
-            <main>
-                <div id="uploadArea" class="uploadArea">
-                    <p>拖曳音乐到此区域上传</p>
-                    <p>文件大小不能超过 40MB</p>
-                    <div id="upload" class="upload">选择音乐</div>
-
-                    <div id="uploading" class="uploading">
-                        <div class="lds-roller">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="editSong">
-                    <header>
-                        <h2>编辑歌曲</h2>
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-edit01"></use>
-                        </svg>
-                    </header>
-                    <form>
-                        <div class="row">
-                            <label>歌名：
-                                <input type="text" />
-                            </label>
-                        </div>
-                        <div class="row">
-                            <label>歌手：
-                                <input type="text" />
-                            </label>
-                        </div>
-                        <div class="row">
-                            <label>外链：
-                                <input type="text" />
-                            </label>
-                        </div>
-                        <div class="row">
-                            <button type="submit" class="submit">保存</button>
-                        </div>
-                    </form>
-                </div>
+            <main id="uploadAndEdit">
             </main>
         </section>
     </div>
@@ -83,11 +37,15 @@
     <script src="../node_modules/qiniu-js/dist/qiniu.min.js"></script>
     <!-- leanclode -->
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <script src="./js/initializes/avInit.js"></script>
+    <!-- 第三方库依赖 -->
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- 事件处理中心 eventHub -->
+    <script src="./js/eventHub.js"></script>
 
-
-    <script src="./js/admin.js"></script>
     <script src="./js/songList.js"></script>
+    <script src="./js/newSong.js"></script>
+    <script src="./js/uploadAndEdit.js"></script>
 </body>
 
 </html>

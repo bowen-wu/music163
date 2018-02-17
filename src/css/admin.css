@@ -87,7 +87,8 @@ body {
           line-height: 28px;
           padding: 6px 16px;
           transition: all 0.2s;
-          cursor: pointer; }
+          cursor: pointer;
+          border-left: 2px solid transparent; }
           .page section aside > .songList > li.active {
             border-left: 2px solid #C62F2F;
             background-color: #E8E9EC;
@@ -131,7 +132,8 @@ body {
         .page section main > .uploadArea.deactive {
           display: none; }
         .page section main > .uploadArea.active {
-          color: #ccc; }
+          color: #ccc;
+          cursor: wait; }
         .page section main > .uploadArea > .upload {
           position: absolute;
           top: calc(100% + 20px);

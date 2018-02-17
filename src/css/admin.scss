@@ -65,6 +65,7 @@
                     padding: 6px 16px;
                     transition: all 0.2s;
                     cursor: pointer;
+                    border-left: 2px solid transparent;
                     &.active {
                         border-left: 2px solid #C62F2F;
                         background-color: #E8E9EC;
@@ -107,6 +108,7 @@
                 }
                 &.active {
                     color: #ccc;
+                    cursor: wait;
                 }
                 >.upload {
                     @include posTopLeft(absolute, calc(100% + 20px), 20px);
