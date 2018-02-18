@@ -75,8 +75,14 @@ click ==> uploadAndEdit[eventHub] ==> form 填充内容
 
 ###### newSong.js
 
+查询数据库内容 ==> 
+
 click ==> uploadAndEdit(status ==> Upload)[eventHub] ==> editSong(remove active) + uploadArea(remove deactive) X
 click ==> songList(li ==> remove active)[self] X
+
+订阅 uploadNewSong 事件 ==> 
+
+
 
 ###### uploadAndEdit.js
 
@@ -91,10 +97,15 @@ editSong status ==>拖曳 + 点击上传成功后 ==> uploading remove active + 
 拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] ==> form 填充内容{更改 render 函数} X
 
 
-拖曳 + 点击上传成功后 ==> form 点击保存 ==> LeanCloud ==> 存储数据 + uploadAndEdit(status ==> upload)[self] + 发布事件[uploadNewSong]
+拖曳 + 点击上传成功后 ==> form 点击保存 ==> LeanCloud ==> 存储数据 + 发布事件[eventHub]{uploadNewSong} + uploadAndEdit(status ==> upload)[self] 
 
 
 拖曳 + 点击上传成功后 ==> form 点击保存 ==> newSong[eventHub] ==> 读取数据库 ==> render
+
+
+
+
+songList click form click update + 外链有问题 查看
 
 
 

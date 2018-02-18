@@ -11,22 +11,41 @@
         },
         render(data) {
             $(this.el).html(this.template)
+            let {songs} = data
+            songs.map((song) => {
+                $(this.el).append($(`<li>${song.name}</li>`))
+            })
         },
         deactive() {
             $(this.el).find('.active').removeClass('active')
         }
     }
     let model = {
-        data: {}
+        data: {
+            songs: [], // [{},{},{},{}]
+        },
+        init() {
+            let query = new AV.Query('Song');
+            return query.find().then((songs) => {
+                this.data.songs = songs.map((song) => {
+                    return {id: song.id, ...song.attributes}
+                })
+            })
+        }
     }
     let controller = {
         init(view, model) {
             this.view = view
             this.model = model
             this.view.init()
-            this.view.render(this.model.data)
             this.bindEvents()
             this.bindEventHub()
+            this.getAllSongs()
+        },
+        getAllSongs() {
+            this.model.init().then(() => {
+                this.view.render(this.model.data)
+            })
         },
         bindEvents() {
             this.view.$el.on('click', 'li', (e) => {
@@ -39,6 +58,9 @@
             window.eventHub.on('newSong', (data) => {
                 console.log(3)
                 this.view.deactive()
+            })
+            window.eventHub.on('uploadNewSong', (newSong) => {
+                console.log(newSong)
             })
         }
     }
