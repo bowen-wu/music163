@@ -71,24 +71,30 @@ let {accessKey, secretKey} = content
 
 click ==> active[self] X
 click ==> uploadAndEdit(status ==> Edit)[eventHub] X
-click ==> uploadAndEdit ==> form 填充内容 
+click ==> uploadAndEdit[eventHub] ==> form 填充内容 
 
 ###### newSong.js
 
 click ==> uploadAndEdit(status ==> Upload)[eventHub] ==> editSong(remove active) + uploadArea(remove deactive) X
-click ==> songList(li ==> remove active) X
+click ==> songList(li ==> remove active)[self] X
 
 ###### uploadAndEdit.js
 
-loading status ==> 拖曳 + 点击上传时 ==> uploading active + uploadArea active + upload active X
+upload status ==> 新建歌曲 + 上传界面 ==> upload-outer remove deactive + editSong remove active[self] X
 
-editSong status ==>拖曳 + 点击上传成功后 ==> uploading remove active + uploadArea remove active + upload remove active + upload-outer deactive + editSong active X
+loading status ==> 拖曳 + 点击上传时 ==> uploading active + uploadArea active + upload active[self] X
 
-upload status ==> 新建歌曲 + 上传界面 ==> upload-outer remove deactive + editSong remove active X
+editSong status ==>拖曳 + 点击上传成功后 ==> uploading remove active + uploadArea remove active + upload remove active + upload-outer deactive + editSong active[self] X
 
-拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] X
-拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit) ==> form 填充内容 X
-拖曳 + 点击上传成功后 ==> form 点击保存 ==> LeanCloud ==> 存储数据 
+
+
+拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] ==> form 填充内容{更改 render 函数} X
+
+
+拖曳 + 点击上传成功后 ==> form 点击保存 ==> LeanCloud ==> 存储数据 + uploadAndEdit(status ==> upload)[self] + 发布事件[uploadNewSong]
+
+
+拖曳 + 点击上传成功后 ==> form 点击保存 ==> newSong[eventHub] ==> 读取数据库 ==> render
 
 
 

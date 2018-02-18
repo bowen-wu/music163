@@ -31,17 +31,17 @@
             <form>
                 <div class="row">
                     <label>歌名：
-                        <input type="text" value="{{name}}" />
+                        <input name="name" type="text" value="{{name}}" />
                     </label>
                 </div>
                 <div class="row">
                     <label>歌手：
-                        <input type="text" value="{{singer}}" />
+                        <input name="singer" type="text" value="{{singer}}" />
                     </label>
                 </div>
                 <div class="row">
                     <label>外链：
-                        <input type="text" value="{{url}}" />
+                        <input name="url" type="text" value="{{url}}" />
                     </label>
                 </div>
                 <div class="row">
@@ -52,14 +52,19 @@
         init() {
             this.$el = $(this.el)
         },
-        render(data) {
+        render(data = {}) { // data = {} 保证了render() 参数为空时 保底
             let needs = 'name singer url'.split(' ')
             let html = this.template
             needs.map(string => html = html.replace(`{{${string}}}`, data[string] || ''))
             $(this.el).html(html)
-            if (data.name || data.url) {
-                this.editActive()
-            }
+        },
+        update(data) {
+            let needs = 'name singer url'.split(' ')
+            needs.map(string => $(this.el).find(`input[name=${string}]`).val(data[string]))
+        },
+        uploadActive() {
+            $(this.el).find('#upload-outer').removeClass('deactive')
+            $(this.el).find('#editSong').removeClass('active')
         },
         loadingActive() {
             $(this.el).find('#uploading').addClass('active')
@@ -67,70 +72,82 @@
             $(this.el).find('#upload').addClass('active')
         },
         editActive() {
-
-            // 貌似可以不移除 ==> 每次 render X 可能上传错误，从 Edit 界面点击新建歌曲 ==> bug
             $(this.el).find('#upload').removeClass('active')
             $(this.el).find('#uploadArea').removeClass('active')
             $(this.el).find('#uploading').removeClass('active')
-
-
             $(this.el).find('#upload-outer').addClass('deactive')
             $(this.el).find('#editSong').addClass('active')
         },
-        uploadActive() {
-            $(this.el).find('#upload-outer').removeClass('deactive')
-            $(this.el).find('#editSong').removeClass('active')
-        }
     }
+
+
     let model = {
-        data: {
-            name: '',
-            singer: '',
-            url: '',
-            id:'',
+        data: {},
+        init() {
+            this.data = {
+                name: '',
+                singer: '',
+                url: '',
+                id: '',
+            }
         },
         create(data) {
-            // 声明类型
-            let Song = AV.Object.extend('Songs')
-            // 新建对象
+            let Song = AV.Object.extend('Song')
             let song = new Song()
-            // 设置名称
             song.set('name', data.name)
+            song.set('singer', data.singer)
+            song.set('url', data.url)
+            return song.save().then((newSong) => {
+                // 更新 this.data 方案一
+                // let {attributes:{name, singer, url}, id} = newSong
+                // Object.assign(this.data, {id, name, url, singer})
 
-            // 设置优先级
-            song.set('priority', 1)
-            song.save().then(function (todo) {
-                console.log('objectId is ' + todo.id)
-            }, function (error) {
-                console.error(error)
+                // 更新 this.data 方案二
+                let {id, attributes} = newSong
+                Object.assign(this.data, {id, ...attributes})
             })
-
-
-            Object.assign(this.data, data)
-            console.log(this.data)
         },
         updata(data) {
             
         }
     }
+
+
+
     let controller = {
         init(view, model) {
             this.view = view
             this.model = model
             this.view.init()
+            this.model.init()
             this.view.render(this.model.data)
             this.initQiniu()
             this.bindEventHub()
+            this.bindEvents()
+        },
+        bindEvents() {
+            this.view.$el.on('click', '#submit', (e) => {
+                e.preventDefault()
+                let needs = 'name singer url'.split(' ')
+                let data = {}
+                needs.map(string => data[string] = this.view.$el.find(`input[name=${string}]`).val())
+                this.model.create(data).then(() => {
+
+                    window.eventHub.emit('uploadNewSong', JSON.parse(JSON.stringify(this.model.data)))
+                    
+                    this.model.init()
+                    this.view.update(this.model.data)
+                    this.view.uploadActive()
+                })
+            })
         },
         bindEventHub() {
-            this.view.$el.on('click', '#submit', (e) => {
-                e.stopPropagation()
-                
-            })
             window.eventHub.on('editSong', (data) => {
                 this.view.editActive()
             })
             window.eventHub.on('newSong', (data) => {
+                this.model.init()
+                this.view.update(this.model.data)
                 this.view.uploadActive()
             })
         },
@@ -161,7 +178,6 @@
                         // 每个文件上传时,处理相关的事情
                     },
                     'FileUploaded': (up, file, info) => {
-
                         this.view.editActive()
                         // domain 是 bucket（篮子） 域名
                         let domain = up.getOption('domain')
@@ -173,9 +189,8 @@
                             name: res.key,
                             url: sourceLink
                         }
-                        console.log('this.model.data')
-                        console.log(this.model.data)
-                        this.view.render(this.model.data)
+                        this.view.update(this.model.data)
+                        this.view.editActive()
 
 
 
