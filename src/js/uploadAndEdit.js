@@ -107,8 +107,15 @@
                 Object.assign(this.data, {id, ...attributes})
             })
         },
-        updata(data) {
-            
+        update(data) {
+            var song = AV.Object.createWithoutData('Song', this.data.id)
+            song.set('name', data.name)
+            song.set('url', data.url)
+            song.set('singer', data.singer)
+            return song.save().then((updateSong) => {
+                let {id, attributes} = updateSong
+                Object.assign(this.data, {id, ...attributes})
+            })
         }
     }
 
@@ -131,18 +138,27 @@
                 let needs = 'name singer url'.split(' ')
                 let data = {}
                 needs.map(string => data[string] = this.view.$el.find(`input[name=${string}]`).val())
-                this.model.create(data).then(() => {
-                    window.eventHub.emit('uploadNewSong', JSON.parse(JSON.stringify(this.model.data)))
-                    this.model.init()
-                    this.view.update(this.model.data)
-                    this.view.uploadActive()
-                })
+                if(this.model.data.id){
+                    this.model.update(data).then(() => {
+                        this.view.update(this.model.data)
+                        window.eventHub.emit('updateSong', JSON.parse(JSON.stringify(this.model.data)))
+                    })
+                }else{
+                    this.model.create(data).then(() => {
+                        this.model.init()
+                        this.view.update(this.model.data)
+                        this.view.uploadActive()
+                        window.eventHub.emit('uploadNewSong', JSON.parse(JSON.stringify(this.model.data)))
+                    })
+                }
+                
             })
         },
         bindEventHub() {
             window.eventHub.on('editSong', (data) => {
                 this.view.editActive()
-                this.view.update(data)
+                this.model.data = data
+                this.view.update(this.model.data)
             })
             window.eventHub.on('newSong', (data) => {
                 this.model.init()

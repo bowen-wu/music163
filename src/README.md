@@ -71,7 +71,9 @@ let {accessKey, secretKey} = content
 
 click ==> active[self] X
 click ==> uploadAndEdit(status ==> Edit)[eventHub] X
-click ==> uploadAndEdit[eventHub] ==> form 填充内容 
+click ==> uploadAndEdit[eventHub] ==> form 填充内容 显示对应信息 X
+
+订阅 uploadNewSong 事件 ==> 局部更新列表 X
 
 ###### newSong.js
 
@@ -79,9 +81,6 @@ click ==> uploadAndEdit[eventHub] ==> form 填充内容
 
 click ==> uploadAndEdit(status ==> Upload)[eventHub] ==> editSong(remove active) + uploadArea(remove deactive) X
 click ==> songList(li ==> remove active)[self] X
-
-订阅 uploadNewSong 事件 ==> 局部更新列表
-
 
 
 ###### uploadAndEdit.js

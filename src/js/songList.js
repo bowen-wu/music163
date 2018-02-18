@@ -12,8 +12,11 @@
                 $(this.el).append($(`<li data-song-id=${song.id}>${song.name}</li>`))
             })
         },
+        create(data) {
+            $(this.el).append($(`<li data-song-id=${data.id}>${data.name}</li>`))
+        },
         updata(data) {
-            $(this.el).append($(`<li data-song-id=${song.id}>${data.name}</li>`))
+            $(this.el).find('.active').text(data.name)
         },
         active(li) {
             $(li).addClass('active').siblings('.active').removeClass('active')
@@ -32,6 +35,16 @@
                 this.data.songs = songs.map((song) => {
                     return {id: song.id, ...song.attributes}
                 })
+            })
+        },
+        create(data) {
+            this.data.songs.push(data)
+        },
+        update(data) {
+            this.data.songs.map((song, index, thisArr) => {
+                if (song.id === data.id) {
+                    Object.assign(thisArr[index], { ...data })
+                }
             })
         },
     }
@@ -69,9 +82,13 @@
                 // 此处存在两种选择，songs 是从数据库中去，还是直接添加
                 // 数据库取 ==> init 即可，之后重新渲染
                 // push + update 局部更新 ==> 疑问：更改信息时是否有问题
-                this.model.data.songs.push(newSong)
-                this.view.updata(newSong)
+                this.model.create(newSong)
+                this.view.create(newSong)
 
+            })
+            window.eventHub.on('updateSong', (editSong) => {
+                this.model.update(editSong)
+                this.view.updata(editSong)
             })
         }
     }
