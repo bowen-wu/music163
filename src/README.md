@@ -80,10 +80,15 @@ click ==> songList(li ==> remove active) X
 
 ###### uploadAndEdit.js
 
-拖曳 + 点击上传时 ==> uploading active + uploadArea active + upload active X
+loading status ==> 拖曳 + 点击上传时 ==> uploading active + uploadArea active + upload active X
+
+editSong status ==>拖曳 + 点击上传成功后 ==> uploading remove active + uploadArea remove active + upload remove active + upload-outer deactive + editSong active X
+
+upload status ==> 新建歌曲 + 上传界面 ==> upload-outer remove deactive + editSong remove active X
 
 拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] X
-拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit) ==> form 填充内容 
+拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit) ==> form 填充内容 X
+拖曳 + 点击上传成功后 ==> form 点击保存 ==> LeanCloud ==> 存储数据 
 
 
 

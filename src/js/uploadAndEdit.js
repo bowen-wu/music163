@@ -2,22 +2,24 @@
     let view = {
         el: '#uploadAndEdit',
         template: `
-            <div id="uploadArea" class="uploadArea">
-                <p>拖曳音乐到此区域上传</p>
-                <p>文件大小不能超过 40MB</p>
-                <div id="upload" class="upload">选择音乐</div>
-                <div id="uploading" class="uploading">
-                    <div class="lds-roller">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+            <div id="upload-outer" class="upload-outer">
+                <div id="uploadArea" class="uploadArea">
+                    <p>拖曳音乐到此区域上传</p>
+                    <p>文件大小不能超过 40MB</p>
+                    <div id="uploading" class="uploading">
+                        <div class="lds-roller">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
                     </div>
                 </div>
+                <div id="upload" class="upload">选择音乐</div>
             </div>
             <div id="editSong" class="editSong">
                 <header>
@@ -26,32 +28,38 @@
                         <use xlink: href="#icon-edit01"></use>
                     </svg>
                 </header>
-                <form>
-                    <div class="row">
-                        <label>歌名：
-                            <input type="text" />
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label>歌手：
-                            <input type="text" />
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label>外链：
-                            <input type="text" />
-                        </label>
-                    </div>
-                    <div class="row">
-                        <button type="submit" class="submit">保存</button>
-                    </div>
-                </form>
+            <form>
+                <div class="row">
+                    <label>歌名：
+                        <input type="text" value="{{name}}" />
+                    </label>
+                </div>
+                <div class="row">
+                    <label>歌手：
+                        <input type="text" value="{{singer}}" />
+                    </label>
+                </div>
+                <div class="row">
+                    <label>外链：
+                        <input type="text" value="{{url}}" />
+                    </label>
+                </div>
+                <div class="row">
+                    <button id="submit" type="submit" class="submit">保存</button>
+                </div>
+            </form>
             </div>`,
         init() {
             this.$el = $(this.el)
         },
         render(data) {
-            $(this.el).html(this.template)
+            let needs = 'name singer url'.split(' ')
+            let html = this.template
+            needs.map(string => html = html.replace(`{{${string}}}`, data[string] || ''))
+            $(this.el).html(html)
+            if (data.name || data.url) {
+                this.editActive()
+            }
         },
         loadingActive() {
             $(this.el).find('#uploading').addClass('active')
@@ -59,12 +67,18 @@
             $(this.el).find('#upload').addClass('active')
         },
         editActive() {
+
+            // 貌似可以不移除 ==> 每次 render X 可能上传错误，从 Edit 界面点击新建歌曲 ==> bug
+            $(this.el).find('#upload').removeClass('active')
+            $(this.el).find('#uploadArea').removeClass('active')
             $(this.el).find('#uploading').removeClass('active')
-            $(this.el).find('#uploadArea').addClass('deactive').removeClass('active')
+
+
+            $(this.el).find('#upload-outer').addClass('deactive')
             $(this.el).find('#editSong').addClass('active')
         },
         uploadActive() {
-            $(this.el).find('#uploadArea').removeClass('deactive')
+            $(this.el).find('#upload-outer').removeClass('deactive')
             $(this.el).find('#editSong').removeClass('active')
         }
     }
@@ -72,10 +86,31 @@
         data: {
             name: '',
             singer: '',
-            url: ''
+            url: '',
+            id:'',
+        },
+        create(data) {
+            // 声明类型
+            let Song = AV.Object.extend('Songs')
+            // 新建对象
+            let song = new Song()
+            // 设置名称
+            song.set('name', data.name)
+
+            // 设置优先级
+            song.set('priority', 1)
+            song.save().then(function (todo) {
+                console.log('objectId is ' + todo.id)
+            }, function (error) {
+                console.error(error)
+            })
+
+
+            Object.assign(this.data, data)
+            console.log(this.data)
         },
         updata(data) {
-            Object.assign(this.data, data)
+            
         }
     }
     let controller = {
@@ -88,6 +123,10 @@
             this.bindEventHub()
         },
         bindEventHub() {
+            this.view.$el.on('click', '#submit', (e) => {
+                e.stopPropagation()
+                
+            })
             window.eventHub.on('editSong', (data) => {
                 this.view.editActive()
             })
@@ -122,6 +161,7 @@
                         // 每个文件上传时,处理相关的事情
                     },
                     'FileUploaded': (up, file, info) => {
+
                         this.view.editActive()
                         // domain 是 bucket（篮子） 域名
                         let domain = up.getOption('domain')
@@ -129,14 +169,13 @@
                         let res = JSON.parse(info.response)
                         // sourceLink 上传成功后的文件的Url
                         let sourceLink = 'http://' + domain + '/' + encodeURIComponent(res.key)
-                        
-                        // this.model.update({
-                        //     name: res.key,
-                        //     url: sourceLink
-                        // })
-                        // this.view.render(this.model.data)
-
-                        console.log("sourceLink", sourceLink)
+                        this.model.data = {
+                            name: res.key,
+                            url: sourceLink
+                        }
+                        console.log('this.model.data')
+                        console.log(this.model.data)
+                        this.view.render(this.model.data)
 
 
 

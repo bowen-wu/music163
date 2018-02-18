@@ -6,8 +6,8 @@
 }
 
 @mixin widthHeight($width, $height) {
-    width: $width;
-    height: $height;
+    min-width: $width;
+    min-height: $height;
 }
 
 @mixin posTopLeft($type, $top, $left) {
@@ -81,7 +81,7 @@
                 border-top: 1px solid #999;
                 cursor: pointer;
                 transition: all 0.3s;
-                &:hover{
+                &:hover {
                     color: #fff;
                     background-color: #C62F2F;
                 }
@@ -89,32 +89,128 @@
         }
         main {
             flex: 1;
-            @include flex(none, none);
+            @include flex(center, none);
             background-color: #FAFAFA;
-            >.uploadArea {
-                @include flex(center, center);
-                @include widthHeight(740px, 340px);
-                @include font-line(20px, 40px);
-                margin: 60px auto 0;
+            >.upload-outer {
+                @include flex(none, none);
                 flex-direction: column;
-                border: 2px dashed #ddd;
-                border-radius: 20px;
-                position: relative;
-                color: #000;
-                cursor: pointer;
-                transition: all 0.3s;
-                &.deactive{
+                &.deactive {
                     display: none;
                 }
-                &.active {
-                    color: #ccc;
-                    cursor: wait;
+                >.uploadArea {
+                    flex: 1;
+                    @include flex(center, center);
+                    @include widthHeight(740px, 80px);
+                    @include font-line(20px, 40px);
+                    margin: 60px auto 0;
+                    flex-direction: column;
+                    border: 2px dashed #ddd;
+                    border-radius: 20px;
+                    color: #000;
+                    transition: all 0.3s;
+                    &.active {
+                        color: #ccc;
+                        cursor: wait;
+                    }
+                    >.uploading {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 20px;
+                        background-color: rgba(0, 0, 0, 0.2);
+                        z-index: 2;
+                        @include flex(center, center);
+                        display: none;
+                        &.active {
+                            @include flex(none, none);
+                        }
+                        >.lds-roller {
+                            display: inline-block;
+                            position: relative;
+                            width: 64px;
+                            height: 64px;
+                            div {
+                                animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                                transform-origin: 32px 32px;
+                                &:after {
+                                    content: " ";
+                                    display: block;
+                                    position: absolute;
+                                    @include widthHeight(6px, 6px);
+                                    border-radius: 50%;
+                                    background: #C62F2F;
+                                    margin: -3px 0 0 -3px;
+                                }
+                                @mixin topLeft($top, $left) {
+                                    top: $top;
+                                    left: $left;
+                                }
+                                &:nth-child(1) {
+                                    animation-delay: -0.036s;
+                                }
+                                &:nth-child(1):after {
+                                    @include topLeft(50px, 50px);
+                                }
+                                &:nth-child(2) {
+                                    animation-delay: -0.072s;
+                                }
+                                &:nth-child(2):after {
+                                    @include topLeft(54px, 45px);
+                                }
+                                &:nth-child(3) {
+                                    animation-delay: -0.108s;
+                                }
+                                &:nth-child(3):after {
+                                    @include topLeft(57px, 39px);
+                                }
+                                &:nth-child(4) {
+                                    animation-delay: -0.144s;
+                                }
+                                &:nth-child(4):after {
+                                    @include topLeft(58px, 32px);
+                                }
+                                &:nth-child(5) {
+                                    animation-delay: -0.18s;
+                                }
+                                &:nth-child(5):after {
+                                    @include topLeft(57px, 25px);
+                                }
+                                &:nth-child(6) {
+                                    animation-delay: -0.216s;
+                                }
+                                &:nth-child(6):after {
+                                    @include topLeft(54px, 19px);
+                                }
+                                &:nth-child(7) {
+                                    animation-delay: -0.252s;
+                                }
+                                &:nth-child(7):after {
+                                    @include topLeft(50px, 14px);
+                                }
+                                &:nth-child(8) {
+                                    animation-delay: -0.288s;
+                                }
+                                &:nth-child(8):after {
+                                    @include topLeft(45px, 10px);
+                                }
+                            }
+                            @keyframes lds-roller {
+                                0% {
+                                    transform: rotate(0deg);
+                                }
+                                100% {
+                                    transform: rotate(360deg);
+                                }
+                            }
+                        }
+                    }
                 }
                 >.upload {
-                    @include posTopLeft(absolute, calc(100% + 20px), 20px);
                     @include font-line(16px, 30px);
+                    width: 98px;
                     border: 1px solid #E1E1E2;
                     padding: 8px 16px;
+                    margin: 30px 0 40px; 
                     color: #595959;
                     transition: all 0.2s;
                     cursor: pointer;
@@ -124,116 +220,25 @@
                         color: #fff;
                         border: 1px solid transparent;
                     }
-                    &.active{
+                    &.active {
                         background-color: #ccc;
                         color: #666;
                         cursor: wait;
                     }
                 }
-                >.uploading {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 20px;
-                    background-color: rgba(0, 0, 0, 0.2);
-                    z-index: 2;
-                    @include flex(center, center);
-                    display: none;
-                    &.active {
-                        @include flex(none, none);
-                    }
-                    >.lds-roller {
-                        display: inline-block;
-                        position: relative;
-                        width: 64px;
-                        height: 64px;
-                        div {
-                            animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-                            transform-origin: 32px 32px;
-                            &:after {
-                                content: " ";
-                                display: block;
-                                position: absolute;
-                                @include widthHeight(6px, 6px);
-                                border-radius: 50%;
-                                background: #C62F2F;
-                                margin: -3px 0 0 -3px;
-                            }
-                            @mixin topLeft($top, $left) {
-                                top: $top;
-                                left: $left;
-                            }
-                            &:nth-child(1) {
-                                animation-delay: -0.036s;
-                            }
-                            &:nth-child(1):after {
-                                @include topLeft(50px, 50px);
-                            }
-                            &:nth-child(2) {
-                                animation-delay: -0.072s;
-                            }
-                            &:nth-child(2):after {
-                                @include topLeft(54px, 45px);
-                            }
-                            &:nth-child(3) {
-                                animation-delay: -0.108s;
-                            }
-                            &:nth-child(3):after {
-                                @include topLeft(57px, 39px);
-                            }
-                            &:nth-child(4) {
-                                animation-delay: -0.144s;
-                            }
-                            &:nth-child(4):after {
-                                @include topLeft(58px, 32px);
-                            }
-                            &:nth-child(5) {
-                                animation-delay: -0.18s;
-                            }
-                            &:nth-child(5):after {
-                                @include topLeft(57px, 25px);
-                            }
-                            &:nth-child(6) {
-                                animation-delay: -0.216s;
-                            }
-                            &:nth-child(6):after {
-                                @include topLeft(54px, 19px);
-                            }
-                            &:nth-child(7) {
-                                animation-delay: -0.252s;
-                            }
-                            &:nth-child(7):after {
-                                @include topLeft(50px, 14px);
-                            }
-                            &:nth-child(8) {
-                                animation-delay: -0.288s;
-                            }
-                            &:nth-child(8):after {
-                                @include topLeft(45px, 10px);
-                            }
-                        }
-                        @keyframes lds-roller {
-                            0% {
-                                transform: rotate(0deg);
-                            }
-                            100% {
-                                transform: rotate(360deg);
-                            }
-                        }
-                    }
-                }
             }
-            .editSong {
+
+            >.editSong {
                 flex: 1;
                 @include flex(none, none);
                 flex-direction: column;
                 margin-left: 100px;
                 margin-right: 100px;
                 display: none;
-                &.active{
+                &.active {
                     display: flex;
                 }
-                >header{
+                >header {
                     @include flex(flex-start, center);
                     border-bottom: 1px solid #E1E1E2;
                     padding: 16px 32px;
@@ -241,10 +246,10 @@
                         @include font-line(24px, 30px);
                         color: #131414;
                     }
-                    .icon{
-                       @include widthHeight(30px, 30px);
-                       margin-left: 10px;
-                       fill: #ddd;
+                    .icon {
+                        @include widthHeight(30px, 30px);
+                        margin-left: 10px;
+                        fill: #ddd;
                     }
                 }
                 form {
@@ -284,7 +289,7 @@
                             background-color: #fff;
                             margin-top: 14px;
                             margin-left: 52px;
-                            &:focus{
+                            &:focus {
                                 outline: none;
                             }
                             &:hover {
