@@ -103,8 +103,8 @@
                 // Object.assign(this.data, {id, name, url, singer})
 
                 // 更新 this.data 方案二
-                let {id, attributes} = newSong
-                Object.assign(this.data, {id, ...attributes})
+                let { id, attributes } = newSong
+                Object.assign(this.data, { id, ...attributes })
             })
         },
         update(data) {
@@ -113,8 +113,8 @@
             song.set('url', data.url)
             song.set('singer', data.singer)
             return song.save().then((updateSong) => {
-                let {id, attributes} = updateSong
-                Object.assign(this.data, {id, ...attributes})
+                let { id, attributes } = updateSong
+                Object.assign(this.data, { id, ...attributes })
             })
         }
     }
@@ -138,20 +138,20 @@
                 let needs = 'name singer url'.split(' ')
                 let data = {}
                 needs.map(string => data[string] = this.view.$el.find(`input[name=${string}]`).val())
-                if(this.model.data.id){
+                if (this.model.data.id) {
                     this.model.update(data).then(() => {
                         this.view.update(this.model.data)
                         window.eventHub.emit('updateSong', JSON.parse(JSON.stringify(this.model.data)))
                     })
-                }else{
+                } else {
                     this.model.create(data).then(() => {
+                        window.eventHub.emit('uploadNewSong', JSON.parse(JSON.stringify(this.model.data)))
                         this.model.init()
                         this.view.update(this.model.data)
                         this.view.uploadActive()
-                        window.eventHub.emit('uploadNewSong', JSON.parse(JSON.stringify(this.model.data)))
                     })
                 }
-                
+
             })
         },
         bindEventHub() {

@@ -9,14 +9,14 @@
             $(this.el).html(this.template)
             let {songs} = data
             songs.map((song) => {
-                $(this.el).append($(`<li data-song-id=${song.id}>${song.name}</li>`))
+                $(this.el).append($(`<li data-song-id=${song.id}>${song.name}-${song.singer}</li>`))
             })
         },
         create(data) {
-            $(this.el).append($(`<li data-song-id=${data.id}>${data.name}</li>`))
+            $(this.el).append($(`<li data-song-id=${data.id}>${data.name}-${data.singer}</li>`))
         },
         updata(data) {
-            $(this.el).find('.active').text(data.name)
+            $(this.el).find('.active').text(`${data.name}-${data.singer}`)
         },
         active(li) {
             $(li).addClass('active').siblings('.active').removeClass('active')
@@ -84,7 +84,6 @@
                 // push + update 局部更新 ==> 疑问：更改信息时是否有问题
                 this.model.create(newSong)
                 this.view.create(newSong)
-
             })
             window.eventHub.on('updateSong', (editSong) => {
                 this.model.update(editSong)
