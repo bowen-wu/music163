@@ -80,7 +80,7 @@ click ==> uploadAndEdit[eventHub] ==> form 填充内容
 click ==> uploadAndEdit(status ==> Upload)[eventHub] ==> editSong(remove active) + uploadArea(remove deactive) X
 click ==> songList(li ==> remove active)[self] X
 
-订阅 uploadNewSong 事件 ==> 
+订阅 uploadNewSong 事件 ==> 局部更新列表
 
 
 
@@ -107,6 +107,33 @@ editSong status ==>拖曳 + 点击上传成功后 ==> uploading remove active + 
 
 songList click form click update + 外链有问题 查看
 
+
+#### 增
+
+1. 保存到七牛 ==> 问题1： 同名覆盖（最新为主）？
+
+
+
+
+#### 删
+
+#### 改
+
+#### 查
+
+
+## 相关知识点
+
+1. 传递对象采用深拷贝 
+    ```
+    JSON.parse(JSON.stringfy(obj))
+    ===
+    Object.assign({}, {...obj})
+    ```
+
+2. forEach 不能跳出循环，可以使用 ` some() | every() ` + ` return true ` 跳出循环
+
+3. ` ... + Object.assign ` 一起使用需要 ` Object.assign(obj1, {...obj2}) `
 
 
 

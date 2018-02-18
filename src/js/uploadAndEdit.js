@@ -132,9 +132,7 @@
                 let data = {}
                 needs.map(string => data[string] = this.view.$el.find(`input[name=${string}]`).val())
                 this.model.create(data).then(() => {
-
                     window.eventHub.emit('uploadNewSong', JSON.parse(JSON.stringify(this.model.data)))
-                    
                     this.model.init()
                     this.view.update(this.model.data)
                     this.view.uploadActive()
@@ -144,6 +142,7 @@
         bindEventHub() {
             window.eventHub.on('editSong', (data) => {
                 this.view.editActive()
+                this.view.update(data)
             })
             window.eventHub.on('newSong', (data) => {
                 this.model.init()
