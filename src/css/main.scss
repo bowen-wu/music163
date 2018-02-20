@@ -1,1 +1,205 @@
 @import './reset.scss';
+@mixin flex($justifyContent, $alignItems) {
+    display: flex;
+    justify-content: $justifyContent;
+    align-items: $alignItems;
+}
+
+@mixin widthHeight($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+@mixin fontLine($fontSize, $lineHeight) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+}
+
+@mixin pos($posType, $top, $left) {
+    position: $posType;
+    top: $top;
+    left: $left;
+}
+
+@mixin textOverFlow() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+
+@mixin multipleLinetextOverflow($rowNum) {
+    display: -webkit-box;
+    -webkit-line-clamp: $rowNum;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+body {
+    padding-bottom: 500px;
+}
+
+header {
+    @include flex(none, none);
+    flex-direction: column;
+    @include pos(fixed, 0, 0);
+    width: 100%;
+    z-index: 1;
+    >div.top{
+        @include flex(space-between, center);
+        background-color: #D43C33;
+        padding: 16px 10px 16px 6px;
+        >.brand {
+            @include flex(flex-start, center);
+            color: #fff;
+            >.icon {
+                @include widthHeight(30px, 30px);
+            }
+            >h1 {
+                @include fontLine(22px, 24px);
+                font-weight: 400;
+            }
+        }
+        >.upload {
+            @include flex(center, center);
+            @include fontLine(16px, 20px);
+            color: #fff;
+            padding: 4px 10px;
+            border: 1px solid #E4857F;
+            border-radius: 20px;
+        }
+    }
+    nav {
+        background-color: #fff;
+        >ul {
+            @include flex(space-around, center);
+            border-bottom: 2px solid #E6E6E6;
+            >li {
+                @include fontLine(16px, 18px);
+                padding: 10px 6px;
+                color: #333;
+                margin-bottom: -2px;
+                &.active {
+                    color: #D33A31;
+                    border-bottom: 2px solid #D33A31;
+                }
+            }
+        }
+    }
+}
+main {
+    background-color: #FCFCFD;
+    width: 100%;
+    margin-top: 102px;
+    section.tabItem {
+        @mixin tabItemH2() {
+            @include fontLine(17px, 17px);
+            border-left: 2px solid #D33A31;
+            color: #333;
+            padding-left: 8px;
+        }
+        >.recommendedList {
+            padding-top: 20px;
+            padding-bottom: 40px;
+            >h2 {
+                @include tabItemH2();
+                margin-bottom: 16px;
+            }
+            >ul.row {
+                @include flex(space-between, flex-start);
+                &:nth-child(2) {
+                    margin-bottom: 14px;
+                }
+                >li {
+                    @include pos(relative, none, none);
+                    &:nth-child(2) {
+                        margin: 0 4px;
+                    }
+                    >a.songSheet {
+                        @include flex(flex-start, none);
+                        flex-direction: column;
+                        >img.cover {
+                            @include widthHeight(100%, 100%);
+                        }
+                        >span.slogan {
+                            @include flex(flex-start, center);
+                            @include fontLine(13px, 16px);
+                            @include multipleLinetextOverflow(2);
+                            color: #333;
+                            padding: 6px 2px 0 6px;
+                        }
+                    }
+                    >div.heat {
+                        @include flex(center, center);
+                        @include fontLine(12px, 12px);
+                        @include pos(absolute, 5px, none);
+                        right: 5px;
+                        color: #fff;
+                        >.icon {
+                            @include widthHeight(12px, 12px);
+                            fill: #fff;
+                            margin-right: 4px;
+                        }
+                    }
+                }
+            }
+        }
+        >.newSong {
+            >h2 {
+                @include tabItemH2();
+                margin-bottom: 28px;
+            }
+            >ul.songList {
+                padding-left: 10px;
+                >li {
+                    >a {
+                        @include flex(space-between, center);
+                        padding: 8px 0 5px;
+                        border-bottom: 1px solid #EFEFF0;
+                        >div.song {
+                            flex: 1;
+                            width: 0;
+                            >h3.songName {
+                                @include fontLine(17px, 17px);
+                                @include textOverFlow();
+                                margin-bottom: 3px;
+                            }
+                            >span.songDescription {
+                                @include flex(flex-start, center);
+                                padding: 5px 0;
+                                color: #888;
+                                >div.descriptionText {
+                                    flex: 1;
+                                    @include fontLine(12px, 12px);
+                                    @include textOverFlow();
+                                }
+                                >div.icon-wrapper {
+                                    display: none;
+                                    margin-right: 4px;
+                                    >.icon {
+                                        @include flex(none, none);
+                                        @include widthHeight(14px, 12px);
+                                        fill: #FE672E;
+                                    }
+                                }
+                                &.active {
+                                    >div.icon-wrapper {
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+                        >div.play {
+                            padding-right: 10px;
+                            >.icon {
+                                @include widthHeight(24px, 24px);
+                                fill: #AAAAAA;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

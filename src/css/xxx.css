@@ -1,0 +1,57 @@
+div>a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0 5px;
+    border-bottom: 1px solid #EFEFF0;
+}
+
+div>a>div.song {
+    flex: 1;
+}
+
+div>a>div.song>h3.songName {
+    font-size: 17px;
+    line-height: 17px;
+    margin-bottom: 3px;
+}
+
+div>a>div.song>span.songDescription {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 0;
+    color: #888;
+}
+
+div>a>div.song>span.songDescription>div.descriptionText {
+    flex: 1;
+    font-size: 12px;
+    line-height: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: normal;
+}
+
+div>a>div.song>span.songDescription>div.icon-wrapper {
+    display: none;
+}
+
+div>a>div.song>span.songDescription>div.icon-wrapper>.icon {
+    display: flex;
+    justify-content: none;
+    align-items: none;
+    width: 14px;
+    height: 12px;
+    fill: #FE672E;
+}
+
+div > a > div.song > span.songDescription.active > div.icon-wrapper {
+    display: block; }
+div > a > div.play {
+padding-right: 10px; }
+div > a > div.play > .icon {
+  width: 24px;
+  height: 24px;
+  fill: #AAAAAA; }
