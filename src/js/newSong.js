@@ -10,7 +10,15 @@
         }
     }
     let model = {
-        data: {}
+        data: {},
+        init() {
+            this.data = {
+                name: '',
+                singer: '',
+                url: '',
+                id: '',
+            }
+        },
     }
     let controller = {
         init(view, model) {
@@ -19,10 +27,24 @@
             this.view.init()
             this.view.render(this.model.data)
             this.bindEvents()
+            this.bindEventHub()
         },
         bindEvents() {
             this.view.$el.on('click', () => {
+                console.log("this.model.data")
+                console.log(this.model.data)
                 window.eventHub.emit('newSong', this.model.data)
+            })
+        },
+        bindEventHub() {
+            window.eventHub.on('editSong', (data) => {
+                this.model.data = data
+            })
+            window.eventHub.on('updateSong', () => {
+                this.model.data.init()
+            })
+            window.eventHub.on('upload', (data) => {
+                this.model.data = data
             })
         }
     }

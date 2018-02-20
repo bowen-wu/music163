@@ -70,10 +70,10 @@ let {accessKey, secretKey} = content
 ###### songList.js
 
 click ==> active[self] X
-click ==> uploadAndEdit(status ==> Edit)[eventHub] X
-click ==> uploadAndEdit[eventHub] ==> form 填充内容 显示对应信息 X
+click ==> uploadAndEdit(status ==> Edit)[eventHub]{editSong} X
+click ==> uploadAndEdit[eventHub]{editSong} ==> form 填充内容 显示对应信息 X
 
-订阅 uploadNewSong 事件 ==> 局部更新列表 X
+订阅 createSong 事件 ==> 局部更新列表 X
 
 ###### newSong.js
 
@@ -81,6 +81,14 @@ click ==> uploadAndEdit[eventHub] ==> form 填充内容 显示对应信息 X
 
 click ==> uploadAndEdit(status ==> Upload)[eventHub] ==> editSong(remove active) + uploadArea(remove deactive) X
 click ==> songList(li ==> remove active)[self] X
+
+click ==> form 表单的内容是 新上传的 | 编辑的
+    - data 空时 ==> 新建页面
+    - 新上传的 ==> 弹窗 ==> 通知未保存
+    - 编辑的 ==> 已点击保存 ==> data 置空 ==> 新建页面
+    - 编辑的 ==> 未点击保存 ==> 弹窗 ==> 通知未保存
+监听事件[eventHub]{editSong} ==> 将 data 存储到自己的 model 上
+监听事件[eventHub]{updateSong} ==> 将 data 初始化(清空)
 
 
 ###### uploadAndEdit.js
@@ -96,7 +104,7 @@ editSong status ==>拖曳 + 点击上传成功后 ==> uploading remove active + 
 拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] ==> form 填充内容{更改 render 函数} X
 
 
-拖曳 + 点击上传成功后 ==> form 点击保存 ==> LeanCloud ==> 存储数据 + 发布事件[eventHub]{uploadNewSong} + uploadAndEdit(status ==> upload)[self] 
+拖曳 + 点击上传成功后 ==> form 点击保存 ==> LeanCloud ==> 存储数据 + 发布事件[eventHub]{createSong} + uploadAndEdit(status ==> upload)[self] 
 
 
 拖曳 + 点击上传成功后 ==> form 点击保存 ==> newSong[eventHub] ==> 读取数据库 ==> render

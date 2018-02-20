@@ -145,7 +145,7 @@
                     })
                 } else {
                     this.model.create(data).then(() => {
-                        window.eventHub.emit('uploadNewSong', JSON.parse(JSON.stringify(this.model.data)))
+                        window.eventHub.emit('createSong', JSON.parse(JSON.stringify(this.model.data)))
                         this.model.init()
                         this.view.update(this.model.data)
                         this.view.uploadActive()
@@ -161,9 +161,17 @@
                 this.view.update(this.model.data)
             })
             window.eventHub.on('newSong', (data) => {
-                this.model.init()
-                this.view.update(this.model.data)
-                this.view.uploadActive()
+                console.log('8888888888888888')
+                console.log(data)
+                if(data.id){  // edit
+
+                }else if(data.name){  // upload
+
+                }else{
+                    this.model.init()
+                    this.view.update(this.model.data)
+                    this.view.uploadActive()
+                }
             })
         },
         initQiniu() {
@@ -205,6 +213,7 @@
                             url: sourceLink
                         }
                         this.view.update(this.model.data)
+                        window.eventHub.emit('upload', this.model.data)
                         this.view.editActive()
 
 
