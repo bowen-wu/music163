@@ -33,7 +33,11 @@
             this.view.$el.on('click', () => {
                 console.log("this.model.data")
                 console.log(this.model.data)
-                window.eventHub.emit('newSong', this.model.data)
+                if(this.model.data.name){ // 弹窗
+                    window.eventHub.emit('dialog', this.model.data)
+                }else{  // 新建歌曲
+                    window.eventHub.emit('newSong', this.model.data)
+                }   
             })
         },
         bindEventHub() {
@@ -47,7 +51,7 @@
                 this.model.data.init()
             })
             window.eventHub.on('createSong', () => {
-                this.model.data.init()
+                this.model.init()
             })
         }
     }

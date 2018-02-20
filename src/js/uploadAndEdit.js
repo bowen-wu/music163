@@ -108,7 +108,7 @@
             })
         },
         update(data) {
-            var song = AV.Object.createWithoutData('Song', this.data.id)
+            let song = AV.Object.createWithoutData('Song', this.data.id)
             song.set('name', data.name)
             song.set('url', data.url)
             song.set('singer', data.singer)

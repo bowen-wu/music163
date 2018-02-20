@@ -305,6 +305,10 @@
             height: 100%;
             z-index: 2;
             background-color: rgba(200, 200, 200, 0.4);
+            display: none;
+            &.active{
+                display: flex;
+            }
             >div.dialog {
                 @include flex(none, none);
                 flex-direction: column;

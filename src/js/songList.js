@@ -77,7 +77,7 @@
             })
         },
         bindEventHub() {
-            window.eventHub.on('newSong', data => this.view.deactive())//====操作
+            window.eventHub.on('newSong', data => this.view.deactive())
             window.eventHub.on('createSong', (newSong) => {
                 // 此处存在两种选择，songs 是从数据库中去，还是直接添加
                 // 数据库取 ==> init 即可，之后重新渲染

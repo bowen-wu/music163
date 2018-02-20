@@ -319,7 +319,10 @@ body {
       width: 100%;
       height: 100%;
       z-index: 2;
-      background-color: rgba(200, 200, 200, 0.4); }
+      background-color: rgba(200, 200, 200, 0.4);
+      display: none; }
+      .page section > div.mask.active {
+        display: flex; }
       .page section > div.mask > div.dialog {
         display: flex;
         justify-content: none;
