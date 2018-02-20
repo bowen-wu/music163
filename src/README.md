@@ -82,12 +82,13 @@ click ==> uploadAndEdit[eventHub]{editSong} ==> form 填充内容 显示对应�
 click ==> uploadAndEdit(status ==> Upload)[eventHub] ==> editSong(remove active) + uploadArea(remove deactive) X
 click ==> songList(li ==> remove active)[self] X
 
+
 click ==> form 表单的内容是 新上传的 | 编辑的
     - data 空时 ==> 新建页面
     - 编辑的 ==> 已点击保存 ==> data 置空 ==> 新建页面
     - 编辑的{id} ==> 未点击保存 ==> 弹窗 ==> 通知未保存
     - 新上传的{name} ==> 弹窗 ==> 通知未保存
-监听事件[eventHub]{editSong} ==> 将 data 存储到自己的 model 上
+监听事件[eventHub]{changeSong} ==> 将 data 存储到自己的 model 上
 监听事件[eventHub]{upload} ==> 将 data 存储到自己的 model 上
 监听事件[eventHub]{updateSong} ==> 将 data 初始化(清空)
 监听事件[eventHub]{createSong} ==> 将 data 初始化(清空)
@@ -103,8 +104,10 @@ editSong status ==>拖曳 + 点击上传成功后 ==> uploading remove active + 
 
 
 
+
 拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] ==> form 填充内容{更改 render 函数} X
 
+拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] ==> 监听 ` input ` 事件 ==> 发布 changeSong 事件[eventHub] ==> 内容改变(传 this.model.data) + 内容不变(传 {})
 
 拖曳 + 点击上传成功后 ==> form 点击保存 ==> LeanCloud ==> 存储数据 + 发布事件[eventHub]{createSong} + uploadAndEdit(status ==> upload)[self] 
 

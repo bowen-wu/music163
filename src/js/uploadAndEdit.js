@@ -165,23 +165,18 @@
                         userInput[$(item).attr('name')] = $(item).val()
                     })
                     let needs = 'name singer url'.split(' ')
-                    needs.every((it) => userInput[it] === this.model.data[it]) ? 
-                    window.eventHub.emit('changeSong', {}) : 
-                    window.eventHub.emit('changeSong', this.model.data)
+                    needs.every((it) => userInput[it] === this.model.data[it]) ?
+                        window.eventHub.emit('changeSong', {}) :
+                        window.eventHub.emit('changeSong', JSON.parse(JSON.stringify(this.model.data)))
                 })
             })
             window.eventHub.on('newSong', (data) => {
-                console.log('8888888888888888')
-                console.log(data)
-                if(data.id){  // edit 没保存
-
-                }else if(data.name){  // upload 没保存
-
-                }else{
-                    this.model.init()
-                    this.view.update(this.model.data)
-                    this.view.uploadActive()
-                }
+                this.model.init()
+                this.view.update(this.model.data)
+                this.view.uploadActive()
+            })
+            window.eventHub.on('giveUpEdit', (data) => {
+                this.view.uploadActive()
             })
         },
         initQiniu() {
@@ -223,7 +218,7 @@
                             url: sourceLink
                         }
                         this.view.update(this.model.data)
-                        window.eventHub.emit('upload', this.model.data)
+                        window.eventHub.emit('upload', JSON.parse(JSON.stringify(this.model.data)))
                         this.view.editActive()
 
 

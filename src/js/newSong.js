@@ -31,25 +31,20 @@
         },
         bindEvents() {
             this.view.$el.on('click', () => {
-                console.log("this.model.data")
-                console.log(this.model.data)
-                if(this.model.data.name){ // 弹窗
-                    window.eventHub.emit('dialog', this.model.data)
-                }else{  // 新建歌曲
-                    window.eventHub.emit('newSong', this.model.data)
-                }   
+                this.model.data.name ?
+                    window.eventHub.emit('dialog', JSON.parse(JSON.stringify(this.model.data))) :
+                    window.eventHub.emit('newSong', JSON.parse(JSON.stringify(this.model.data)))
             })
         },
         bindEventHub() {
             window.eventHub.on('changeSong', (data) => {
-                console.log(data)
                 this.model.data = data
             })
             window.eventHub.on('upload', (data) => {
                 this.model.data = data
             })
             window.eventHub.on('updateSong', () => {
-                this.model.data.init()
+                this.model.init()
             })
             window.eventHub.on('createSong', () => {
                 this.model.init()

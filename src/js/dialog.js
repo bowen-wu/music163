@@ -54,6 +54,7 @@
         bindEventHub() {
             window.eventHub.on('dialog', (data) => {
                 this.view.active()
+                this.model.data = data
             })
         },
         bindEvents() {
@@ -65,6 +66,7 @@
             })
             this.view.$el.on('click', '#confirm', (e) => {
                 this.view.deactive()
+                window.eventHub.emit('giveUpEdit', this.model.data)
             })
         }
     }
