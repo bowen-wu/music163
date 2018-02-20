@@ -40,11 +40,14 @@
             window.eventHub.on('editSong', (data) => {
                 this.model.data = data
             })
+            window.eventHub.on('upload', (data) => {
+                this.model.data = data
+            })
             window.eventHub.on('updateSong', () => {
                 this.model.data.init()
             })
-            window.eventHub.on('upload', (data) => {
-                this.model.data = data
+            window.eventHub.on('createSong', () => {
+                this.model.data.init()
             })
         }
     }

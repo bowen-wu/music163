@@ -84,11 +84,13 @@ click ==> songList(li ==> remove active)[self] X
 
 click ==> form 表单的内容是 新上传的 | 编辑的
     - data 空时 ==> 新建页面
-    - 新上传的 ==> 弹窗 ==> 通知未保存
     - 编辑的 ==> 已点击保存 ==> data 置空 ==> 新建页面
-    - 编辑的 ==> 未点击保存 ==> 弹窗 ==> 通知未保存
+    - 编辑的{id} ==> 未点击保存 ==> 弹窗 ==> 通知未保存
+    - 新上传的{name} ==> 弹窗 ==> 通知未保存
 监听事件[eventHub]{editSong} ==> 将 data 存储到自己的 model 上
+监听事件[eventHub]{upload} ==> 将 data 存储到自己的 model 上
 监听事件[eventHub]{updateSong} ==> 将 data 初始化(清空)
+监听事件[eventHub]{createSong} ==> 将 data 初始化(清空)
 
 
 ###### uploadAndEdit.js

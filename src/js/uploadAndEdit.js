@@ -163,9 +163,9 @@
             window.eventHub.on('newSong', (data) => {
                 console.log('8888888888888888')
                 console.log(data)
-                if(data.id){  // edit
-
-                }else if(data.name){  // upload
+                if(data.id){  // edit 没保存
+                    
+                }else if(data.name){  // upload 没保存
 
                 }else{
                     this.model.init()
