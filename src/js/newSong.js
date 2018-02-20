@@ -41,7 +41,8 @@
             })
         },
         bindEventHub() {
-            window.eventHub.on('editSong', (data) => {
+            window.eventHub.on('changeSong', (data) => {
+                console.log(data)
                 this.model.data = data
             })
             window.eventHub.on('upload', (data) => {

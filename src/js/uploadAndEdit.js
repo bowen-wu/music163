@@ -159,6 +159,16 @@
                 this.view.editActive()
                 this.model.data = data
                 this.view.update(this.model.data)
+                this.view.$el.on('input', 'input[type=text]', (e) => {
+                    let userInput = {}
+                    this.view.$el.find('input[type=text]').each((index, item) => {
+                        userInput[$(item).attr('name')] = $(item).val()
+                    })
+                    let needs = 'name singer url'.split(' ')
+                    needs.every((it) => userInput[it] === this.model.data[it]) ? 
+                    window.eventHub.emit('changeSong', {}) : 
+                    window.eventHub.emit('changeSong', this.model.data)
+                })
             })
             window.eventHub.on('newSong', (data) => {
                 console.log('8888888888888888')
