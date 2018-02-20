@@ -16,9 +16,22 @@
     left: $left;
 }
 
-@mixin font-line($fontSize, $lineHeight) {
+@mixin fontLineColor($fontSize, $lineHeight, $color) {
     font-size: $fontSize;
     line-height: $lineHeight;
+    color: $color;
+}
+
+@mixin btn() {
+    @include fontLineColor(16px, 30px, #595959);
+    border: 1px solid #E1E1E2;
+    transition: all 0.2s;
+    cursor: pointer;
+    &:hover {
+        background-color: #C62F2F;
+        color: #fff;
+        border: 1px solid transparent;
+    }
 }
 
 .page {
@@ -35,23 +48,21 @@
             fill: #fff;
         }
         h1 {
-            @include font-line(26px, 30px);
-            color: #fff;
+            @include fontLineColor(26px, 30px, #fff);
         }
     }
     section {
         flex: 1;
         @include flex(none, none);
-        aside {
+        >aside {
             width: 200px;
             background-color: #F5F5F7;
             color: #A4A4A5;
             @include flex(none, none);
             flex-direction: column;
             h2 {
-                @include font-line(20px, 36px);
+                @include fontLineColor(20px, 36px, #131414);
                 padding: 8px 12px;
-                color: #131414;
                 border-bottom: 1px solid #999;
             }
             >.songList {
@@ -61,7 +72,7 @@
                     display: none;
                 }
                 >li {
-                    @include font-line(16px, 28px);
+                    @include fontLineColor(16px, 28px, inherit);
                     padding: 6px 16px;
                     transition: all 0.2s;
                     cursor: pointer;
@@ -75,8 +86,7 @@
             }
             >.newSong {
                 @include flex(flex-start, center);
-                @include font-line(18px, 36px);
-                color: #131414;
+                @include fontLineColor(18px, 36px, #131414);
                 padding: 9px 12px;
                 border-top: 1px solid #999;
                 cursor: pointer;
@@ -87,7 +97,7 @@
                 }
             }
         }
-        main {
+        >main {
             flex: 1;
             @include flex(center, none);
             background-color: #FAFAFA;
@@ -101,12 +111,11 @@
                     flex: 1;
                     @include flex(center, center);
                     @include widthHeight(740px, 80px);
-                    @include font-line(20px, 40px);
+                    @include fontLineColor(20px, 40px, #000);
                     margin: 60px auto 0;
                     flex-direction: column;
                     border: 2px dashed #ddd;
                     border-radius: 20px;
-                    color: #000;
                     transition: all 0.3s;
                     &.active {
                         color: #ccc;
@@ -118,7 +127,7 @@
                         height: 100%;
                         border-radius: 20px;
                         background-color: rgba(0, 0, 0, 0.2);
-                        z-index: 2;
+                        z-index: 1;
                         @include flex(center, center);
                         display: none;
                         &.active {
@@ -206,20 +215,11 @@
                     }
                 }
                 >.upload {
-                    @include font-line(16px, 30px);
+                    @include btn();
                     width: 98px;
-                    border: 1px solid #E1E1E2;
                     padding: 8px 16px;
-                    margin: 30px 0 40px; 
-                    color: #595959;
-                    transition: all 0.2s;
-                    cursor: pointer;
+                    margin: 30px 0 40px;
                     border-radius: 8px;
-                    &:hover {
-                        background-color: #C62F2F;
-                        color: #fff;
-                        border: 1px solid transparent;
-                    }
                     &.active {
                         background-color: #ccc;
                         color: #666;
@@ -227,7 +227,6 @@
                     }
                 }
             }
-
             >.editSong {
                 flex: 1;
                 @include flex(none, none);
@@ -243,8 +242,7 @@
                     border-bottom: 1px solid #E1E1E2;
                     padding: 16px 32px;
                     h2 {
-                        @include font-line(24px, 30px);
-                        color: #131414;
+                        @include fontLineColor(24px, 30px, #131414);
                     }
                     .icon {
                         @include widthHeight(30px, 30px);
@@ -257,16 +255,15 @@
                     flex-direction: column;
                     margin-top: 30px;
                     >.row {
-                        @include font-line(16px, 60px);
+                        @include fontLineColor(16px, 60px, inherit);
                         margin-left: 20px;
                         >label {
                             cursor: pointer;
                             >input {
-                                @include font-line(16px, 24px);
+                                @include fontLineColor(16px, 24px, #333);
                                 padding: 4px 10px;
                                 border-radius: 4px;
                                 border: 1px solid #E1E1E2;
-                                color: #333;
                                 transition: all 0.2s;
                                 width: 300px;
                                 &:focus {
@@ -279,11 +276,10 @@
                         }
                         >.submit {
                             @include flex(center, center);
-                            @include font-line(16px, 30px);
+                            @include fontLineColor(16px, 30px, #595959);
                             border: 1px solid #E1E1E2;
                             border-radius: 6px;
                             padding: 4px 16px;
-                            color: #595959;
                             transition: all 0.2s;
                             cursor: pointer;
                             background-color: #fff;
@@ -298,6 +294,63 @@
                                 border: 1px solid transparent;
                             }
                         }
+                    }
+                }
+            }
+        }
+        >div.mask {
+            @include flex(center, center);
+            @include posTopLeft(fixed, 0, 0);
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background-color: rgba(200, 200, 200, 0.4);
+            >div.dialog {
+                @include flex(none, none);
+                flex-direction: column;
+                background-color: #fff;
+                >header {
+                    @include flex(space-between, center);
+                    padding: 18px 32px;
+                    background-color: #C62F2F;
+                    >h2 {
+                        @include fontLineColor(20px, 20px, #fff);
+                    }
+                    >div.close{
+                        cursor: pointer;
+                        transition: all 0.2s;
+                        >.icon {
+                            @include widthHeight(20px, 20px);
+                            fill: #fff;
+                        }
+                        &:hover{
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+                >div.content {
+                    @include flex(center, center);
+                    padding: 30px 90px 38px 26px;
+                    >div.icon-wrapper {
+                        >.icon {
+                            @include widthHeight(34px, 34px);
+                            fill: #C62F2F;
+                        }
+                    }
+                    >div.prompt {
+                        @include fontLineColor(16px, 16px, #686868);
+                        margin-left: 18px;
+                    }
+                }
+                >div.action {
+                    @include flex(flex-end, center);
+                    padding-right: 30px;
+                    margin-bottom: 30px;
+                    >div {
+                        @include btn();
+                        padding: 2px 24px;
+                        border-radius: 6px;
+                        margin: 0 6px;
                     }
                 }
             }

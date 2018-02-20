@@ -63,7 +63,7 @@ body {
     display: flex;
     justify-content: none;
     align-items: none; }
-    .page section aside {
+    .page section > aside {
       width: 200px;
       background-color: #F5F5F7;
       color: #A4A4A5;
@@ -71,29 +71,30 @@ body {
       justify-content: none;
       align-items: none;
       flex-direction: column; }
-      .page section aside h2 {
+      .page section > aside h2 {
         font-size: 20px;
         line-height: 36px;
-        padding: 8px 12px;
         color: #131414;
+        padding: 8px 12px;
         border-bottom: 1px solid #999; }
-      .page section aside > .songList {
+      .page section > aside > .songList {
         flex: 1;
         overflow: auto; }
-        .page section aside > .songList::-webkit-scrollbar {
+        .page section > aside > .songList::-webkit-scrollbar {
           display: none; }
-        .page section aside > .songList > li {
+        .page section > aside > .songList > li {
           font-size: 16px;
           line-height: 28px;
+          color: inherit;
           padding: 6px 16px;
           transition: all 0.2s;
           cursor: pointer;
           border-left: 2px solid transparent; }
-          .page section aside > .songList > li.active {
+          .page section > aside > .songList > li.active {
             border-left: 2px solid #C62F2F;
             background-color: #E8E9EC;
             color: #131414; }
-      .page section aside > .newSong {
+      .page section > aside > .newSong {
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -104,23 +105,23 @@ body {
         border-top: 1px solid #999;
         cursor: pointer;
         transition: all 0.3s; }
-        .page section aside > .newSong:hover {
+        .page section > aside > .newSong:hover {
           color: #fff;
           background-color: #C62F2F; }
-    .page section main {
+    .page section > main {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: none;
       background-color: #FAFAFA; }
-      .page section main > .upload-outer {
+      .page section > main > .upload-outer {
         display: flex;
         justify-content: none;
         align-items: none;
         flex-direction: column; }
-        .page section main > .upload-outer.deactive {
+        .page section > main > .upload-outer.deactive {
           display: none; }
-        .page section main > .upload-outer > .uploadArea {
+        .page section > main > .upload-outer > .uploadArea {
           flex: 1;
           display: flex;
           justify-content: center;
@@ -129,39 +130,39 @@ body {
           min-height: 80px;
           font-size: 20px;
           line-height: 40px;
+          color: #000;
           margin: 60px auto 0;
           flex-direction: column;
           border: 2px dashed #ddd;
           border-radius: 20px;
-          color: #000;
           transition: all 0.3s; }
-          .page section main > .upload-outer > .uploadArea.active {
+          .page section > main > .upload-outer > .uploadArea.active {
             color: #ccc;
             cursor: wait; }
-          .page section main > .upload-outer > .uploadArea > .uploading {
+          .page section > main > .upload-outer > .uploadArea > .uploading {
             position: absolute;
             width: 100%;
             height: 100%;
             border-radius: 20px;
             background-color: rgba(0, 0, 0, 0.2);
-            z-index: 2;
+            z-index: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             display: none; }
-            .page section main > .upload-outer > .uploadArea > .uploading.active {
+            .page section > main > .upload-outer > .uploadArea > .uploading.active {
               display: flex;
               justify-content: none;
               align-items: none; }
-            .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller {
+            .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller {
               display: inline-block;
               position: relative;
               width: 64px;
               height: 64px; }
-              .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div {
+              .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div {
                 animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
                 transform-origin: 32px 32px; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:after {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:after {
                   content: " ";
                   display: block;
                   position: absolute;
@@ -170,44 +171,44 @@ body {
                   border-radius: 50%;
                   background: #C62F2F;
                   margin: -3px 0 0 -3px; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(1) {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(1) {
                   animation-delay: -0.036s; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(1):after {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(1):after {
                   top: 50px;
                   left: 50px; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(2) {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(2) {
                   animation-delay: -0.072s; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(2):after {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(2):after {
                   top: 54px;
                   left: 45px; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(3) {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(3) {
                   animation-delay: -0.108s; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(3):after {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(3):after {
                   top: 57px;
                   left: 39px; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(4) {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(4) {
                   animation-delay: -0.144s; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(4):after {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(4):after {
                   top: 58px;
                   left: 32px; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(5) {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(5) {
                   animation-delay: -0.18s; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(5):after {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(5):after {
                   top: 57px;
                   left: 25px; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(6) {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(6) {
                   animation-delay: -0.216s; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(6):after {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(6):after {
                   top: 54px;
                   left: 19px; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(7) {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(7) {
                   animation-delay: -0.252s; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(7):after {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(7):after {
                   top: 50px;
                   left: 14px; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(8) {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(8) {
                   animation-delay: -0.288s; }
-                .page section main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(8):after {
+                .page section > main > .upload-outer > .uploadArea > .uploading > .lds-roller div:nth-child(8):after {
                   top: 45px;
                   left: 10px; }
 
@@ -216,26 +217,26 @@ body {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
-        .page section main > .upload-outer > .upload {
+        .page section > main > .upload-outer > .upload {
           font-size: 16px;
           line-height: 30px;
-          width: 98px;
-          border: 1px solid #E1E1E2;
-          padding: 8px 16px;
-          margin: 30px 0 40px;
           color: #595959;
+          border: 1px solid #E1E1E2;
           transition: all 0.2s;
           cursor: pointer;
+          width: 98px;
+          padding: 8px 16px;
+          margin: 30px 0 40px;
           border-radius: 8px; }
-          .page section main > .upload-outer > .upload:hover {
+          .page section > main > .upload-outer > .upload:hover {
             background-color: #C62F2F;
             color: #fff;
             border: 1px solid transparent; }
-          .page section main > .upload-outer > .upload.active {
+          .page section > main > .upload-outer > .upload.active {
             background-color: #ccc;
             color: #666;
             cursor: wait; }
-      .page section main > .editSong {
+      .page section > main > .editSong {
         flex: 1;
         display: flex;
         justify-content: none;
@@ -244,66 +245,137 @@ body {
         margin-left: 100px;
         margin-right: 100px;
         display: none; }
-        .page section main > .editSong.active {
+        .page section > main > .editSong.active {
           display: flex; }
-        .page section main > .editSong > header {
+        .page section > main > .editSong > header {
           display: flex;
           justify-content: flex-start;
           align-items: center;
           border-bottom: 1px solid #E1E1E2;
           padding: 16px 32px; }
-          .page section main > .editSong > header h2 {
+          .page section > main > .editSong > header h2 {
             font-size: 24px;
             line-height: 30px;
             color: #131414; }
-          .page section main > .editSong > header .icon {
+          .page section > main > .editSong > header .icon {
             min-width: 30px;
             min-height: 30px;
             margin-left: 10px;
             fill: #ddd; }
-        .page section main > .editSong form {
+        .page section > main > .editSong form {
           display: flex;
           justify-content: none;
           align-items: none;
           flex-direction: column;
           margin-top: 30px; }
-          .page section main > .editSong form > .row {
+          .page section > main > .editSong form > .row {
             font-size: 16px;
             line-height: 60px;
+            color: inherit;
             margin-left: 20px; }
-            .page section main > .editSong form > .row > label {
+            .page section > main > .editSong form > .row > label {
               cursor: pointer; }
-              .page section main > .editSong form > .row > label > input {
+              .page section > main > .editSong form > .row > label > input {
                 font-size: 16px;
                 line-height: 24px;
+                color: #333;
                 padding: 4px 10px;
                 border-radius: 4px;
                 border: 1px solid #E1E1E2;
-                color: #333;
                 transition: all 0.2s;
                 width: 300px; }
-                .page section main > .editSong form > .row > label > input:focus {
+                .page section > main > .editSong form > .row > label > input:focus {
                   outline: none; }
-                .page section main > .editSong form > .row > label > input:hover {
+                .page section > main > .editSong form > .row > label > input:hover {
                   border-color: #666; }
-            .page section main > .editSong form > .row > .submit {
+            .page section > main > .editSong form > .row > .submit {
               display: flex;
               justify-content: center;
               align-items: center;
               font-size: 16px;
               line-height: 30px;
+              color: #595959;
               border: 1px solid #E1E1E2;
               border-radius: 6px;
               padding: 4px 16px;
-              color: #595959;
               transition: all 0.2s;
               cursor: pointer;
               background-color: #fff;
               margin-top: 14px;
               margin-left: 52px; }
-              .page section main > .editSong form > .row > .submit:focus {
+              .page section > main > .editSong form > .row > .submit:focus {
                 outline: none; }
-              .page section main > .editSong form > .row > .submit:hover {
+              .page section > main > .editSong form > .row > .submit:hover {
                 background-color: #C62F2F;
                 color: #fff;
                 border: 1px solid transparent; }
+    .page section > div.mask {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background-color: rgba(200, 200, 200, 0.4); }
+      .page section > div.mask > div.dialog {
+        display: flex;
+        justify-content: none;
+        align-items: none;
+        flex-direction: column;
+        background-color: #fff; }
+        .page section > div.mask > div.dialog > header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 18px 32px;
+          background-color: #C62F2F; }
+          .page section > div.mask > div.dialog > header > h2 {
+            font-size: 20px;
+            line-height: 20px;
+            color: #fff; }
+          .page section > div.mask > div.dialog > header > div.close {
+            cursor: pointer;
+            transition: all 0.2s; }
+            .page section > div.mask > div.dialog > header > div.close > .icon {
+              min-width: 20px;
+              min-height: 20px;
+              fill: #fff; }
+            .page section > div.mask > div.dialog > header > div.close:hover {
+              transform: rotate(90deg); }
+        .page section > div.mask > div.dialog > div.content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 30px 90px 38px 26px; }
+          .page section > div.mask > div.dialog > div.content > div.icon-wrapper > .icon {
+            min-width: 34px;
+            min-height: 34px;
+            fill: #C62F2F; }
+          .page section > div.mask > div.dialog > div.content > div.prompt {
+            font-size: 16px;
+            line-height: 16px;
+            color: #686868;
+            margin-left: 18px; }
+        .page section > div.mask > div.dialog > div.action {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          padding-right: 30px;
+          margin-bottom: 30px; }
+          .page section > div.mask > div.dialog > div.action > div {
+            font-size: 16px;
+            line-height: 30px;
+            color: #595959;
+            border: 1px solid #E1E1E2;
+            transition: all 0.2s;
+            cursor: pointer;
+            padding: 2px 24px;
+            border-radius: 6px;
+            margin: 0 6px; }
+            .page section > div.mask > div.dialog > div.action > div:hover {
+              background-color: #C62F2F;
+              color: #fff;
+              border: 1px solid transparent; }

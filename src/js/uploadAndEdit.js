@@ -28,26 +28,26 @@
                         <use xlink: href="#icon-edit01"></use>
                     </svg>
                 </header>
-            <form>
-                <div class="row">
-                    <label>歌名：
-                        <input name="name" type="text" value="{{name}}" />
-                    </label>
-                </div>
-                <div class="row">
-                    <label>歌手：
-                        <input name="singer" type="text" value="{{singer}}" />
-                    </label>
-                </div>
-                <div class="row">
-                    <label>外链：
-                        <input name="url" type="text" value="{{url}}" />
-                    </label>
-                </div>
-                <div class="row">
-                    <button id="submit" type="submit" class="submit">保存</button>
-                </div>
-            </form>
+                <form>
+                    <div class="row">
+                        <label>歌名：
+                            <input name="name" type="text" value="{{name}}" />
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>歌手：
+                            <input name="singer" type="text" value="{{singer}}" />
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>外链：
+                            <input name="url" type="text" value="{{url}}" />
+                        </label>
+                    </div>
+                    <div class="row">
+                        <button id="submit" type="submit" class="submit">保存</button>
+                    </div>
+                </form>
             </div>`,
         init() {
             this.$el = $(this.el)
@@ -164,7 +164,7 @@
                 console.log('8888888888888888')
                 console.log(data)
                 if(data.id){  // edit 没保存
-                    
+
                 }else if(data.name){  // upload 没保存
 
                 }else{
