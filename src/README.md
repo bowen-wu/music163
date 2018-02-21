@@ -67,57 +67,191 @@ let {accessKey, secretKey} = content
 
 上传歌曲 + 编辑歌曲 ==> uploadArea + editSong(uploadAndEdit.js) ==> main
 
+###### MVC
+
+
+
 ###### songList.js
-
-click ==> active[self] X
-click ==> uploadAndEdit(status ==> Edit)[eventHub]{editSong} X
-click ==> uploadAndEdit[eventHub]{editSong} ==> form 填充内容 显示对应信息 X
-
-订阅 createSong 事件 ==> 局部更新列表 X
+```
+{
+    let view = {
+        el: '',
+        template: ``,
+        init() {},  // 初始化
+        render() {}, // 初始 render
+        create() {}, // 创建一条新的数据 li
+        update() {}, // 局部更新视图
+        active() {}, // 激活，添加 active 类
+        deactive() {}, // 移除激活，移除 active 类
+    }
+    let model = {
+        data: {}, 
+        init() {}, // 初始化
+        create() {}, // 创建歌曲后更新 data
+        update() {}, // 编辑歌曲信息后更新 data
+    }
+    let controller = {
+        init() {}, // 初始化 + view 初始化 + 调用绑定事件
+        getAllSongs() {}, // 获取所有歌曲，this.model.init + this.view.render
+        bindEvents() {}， // 歌曲项 click 事件，active + 获取歌曲项的所有信息 + 发布 editSong eventHub
+        bindEventHub() {
+            // 订阅 newSong eventHub，view ==> deactive
+            // 订阅 createSong eventHub，model + view ==> create()
+            // 订阅 update eventHub，model + view ==> update()
+        }
+    }
+}
+```
 
 ###### newSong.js
-
-查询数据库内容 ==> 
-
-click ==> uploadAndEdit(status ==> Upload)[eventHub] ==> editSong(remove active) + uploadArea(remove deactive) X
-click ==> songList(li ==> remove active)[self] X
-
-
-click ==> form 表单的内容是 新上传的 | 编辑的
-    - data 空时 ==> 新建页面
-    - 编辑的 ==> 已点击保存 ==> data 置空 ==> 新建页面
-    - 编辑的{id} ==> 未点击保存 ==> 弹窗 ==> 通知未保存
-    - 新上传的{name} ==> 弹窗 ==> 通知未保存
-监听事件[eventHub]{changeSong} ==> 将 data 存储到自己的 model 上
-监听事件[eventHub]{upload} ==> 将 data 存储到自己的 model 上
-监听事件[eventHub]{updateSong} ==> 将 data 初始化(清空)
-监听事件[eventHub]{createSong} ==> 将 data 初始化(清空)
-
+```
+{
+    let view = {
+        el: '',
+        template: ``,
+        init() {},  // 初始化
+        render() {}, // 初始 render
+    }
+    let model = {
+        data: {},
+        init() {},  // 初始化 data（置空）
+    }
+    let controller = {
+        init() {}, // 初始化 + view 初始化 + view render + 调用绑定事件
+        bindEvents() {}, // 监听 click 事件，有歌名发布 dialog[eventHub] + 无歌名 newSong[eventHub]
+        bindEventHub() {
+            // 订阅 changeSong eventHub ==> 更新 this.model.data
+            // 订阅 upload eventHub ==> 更新 this.model.data
+            // 订阅 updateSong eventHub ==> init data(置空)
+            // 订阅 createSong eventHub ==> init data(置空)
+        },
+    }
+}
+```
 
 ###### uploadAndEdit.js
+```
+{
+    let view = {
+        el: '',
+        template: ``,
+        init() {},   // 初始化
+        render() {}, // 初始 render
+        update() {}, // 局部更新视图
+        uploadActive() {}, // status === upload
+        loadingActive() {}, // status === loading
+        editActive() {}, // status === edit
+    }
+    let model = {
+        data: {}, 
+        init() {}, // 初始化 data(置空)
+        create() {}, // 创建数据 + 保存到数据库 + 更新data
+        update() {}, // 更新数据 + 保存到数据库 + 更新data
+    }
+    let controller = {
+        init() {},       // 初始化 + view 初始化 + view render + model init + 调用绑定事件
+        bindEvents() {},　// 监听 submit 事件 + 获取用户输入 ==> 根据 ID 判断 ==> model >> update(view update + 发布 updateSong[eventHub]) | create(发布 createSong[eventHub] + model init + view update + view uploadActive)
+        bindEventHub() {
+            // 订阅 giveUpEdit[eventHub] ==> view uploadActive
+            // 订阅 newSong[eventHub] ==> model init + view update + view uploadActive
+            // 订阅 editSong[eventHub] ==> view editActive + 更新 model.data + 调用 monitorUserInput 事件(监听用户输入事件)
+        }, 
+        initQiniu() {
+            // 每个文件上传时 ==> view loadingActive
+            // 每个文件上传成功后 ==> view editActive + 获取歌名 + 外链(url) + view update + 发布 upload[eventHub]
+        }, 
+        monitorUserInput(){}, // 监听用户输入事件 ==> 拿到用户输入 ==> 与 model.data 对比 ==> 发布 changeSong[eventHub] ==> 一致(参数 >> {}) + 不一致(参数 >> model.data)
+    }
+}
+```
 
-upload status ==> 新建歌曲 + 上传界面 ==> upload-outer remove deactive + editSong remove active[self] X
+###### dialog.js
+```
+{
+    let view = {
+        el: '',
+        template: ``,
+        init() {},   // 初始化
+        render() {}, // 初始 render
+        active() {}, // 激活，添加 active 类
+        deactive() {}, // 移除激活，移除 active 类
+    }
+    let model = {
+        data: {},
+    }
+    let controller = {
+        init() {},  // 初始化 + view init + view render + 调用绑定事件
+        bindEvents() {
+            // click close ==> view deactive
+            // click cancel ==> view deactive
+            // click confirm ==> view deactive + 发布 giveUpEdit[eventHub]
+        },   
+        bindEventHub() {}, // 订阅 dialog[eventHub] ==> view active + 更新 render
+    }
+}
+```
 
-loading status ==> 拖曳 + 点击上传时 ==> uploading active + uploadArea active + upload active[self] X
+#### 套路
+```
+{
+    let view = {
+        el: '',
+        template: ``,
+        init() { // 初始化
 
-editSong status ==>拖曳 + 点击上传成功后 ==> uploading remove active + uploadArea remove active + upload remove active + upload-outer deactive + editSong active[self] X
+        },   
+        render(data = {}) { // 初始 render
 
+        }, 
+        create(data) { // 创建新的项
+            console.log(data)
+        }, 
+        update(data) { // 局部更新视图
 
+        }, 
+        <!-- 切换状态函数 -->
+        active() { // 激活，添加 active 类
 
+        },
+        deactive() { // 移除激活，移除 active 类
 
-拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] ==> form 填充内容{更改 render 函数} X
+        },
+    }
+    let model = {
+        data: {},
+        init() { // 初始化
 
-拖曳 + 点击上传成功后 ==> uploadAndEdit(status ==> Edit)[self] ==> 监听 ` input ` 事件 ==> 发布 changeSong 事件[eventHub] ==> 内容改变(传 this.model.data) + 内容不变(传 {})
+        }, 
+        create(data) { // 创建数据 ==> 更新 data
+            console.log(data)
 
-拖曳 + 点击上传成功后 ==> form 点击保存 ==> LeanCloud ==> 存储数据 + 发布事件[eventHub]{createSong} + uploadAndEdit(status ==> upload)[self] 
+        },
+        update(data) { // 编辑数据 ==> 更新 data
+            console.log(data)
+        },
+    }
+    let controller = {
+        init(view, model) {
+            this.view = view
+            this.model = model
+            this.view.init()
+            this.model.init()
+            this.view.render(this.model.data)
+            this.bindEvents()
+            this.bindEventhub()
+        },
+        bindEvents(){
 
-
-拖曳 + 点击上传成功后 ==> form 点击保存 ==> newSong[eventHub] ==> 读取数据库 ==> render
-
-
-
-
-songList click form click update + 外链有问题 查看
+        },
+        bindEventHub() {
+            window.eventHub.on('', (data) => {
+                console.log(data)
+            })
+        },
+    }
+    controller.init(view, model)
+}
+```
 
 
 #### 增
@@ -143,9 +277,18 @@ songList click form click update + 外链有问题 查看
     Object.assign({}, {...obj})
     ```
 
-2. forEach 不能跳出循环，可以使用 ` some() | every() ` + ` return true ` 跳出循环
+2. 更新 model.data
+    - ` this.model.update() `
+    - ` Object.assign(this.model.data, {...data}) `
+    - ` this.model.data = data `
 
-3. ` ... + Object.assign ` 一起使用需要 ` Object.assign(obj1, {...obj2}) `
+3. 拿到数据 data 后
+    1. 更新 ` model.data `
+    2. ` view ` 相关操作 ==> ` this.view.render(this.model.data) + this.view.create(this.model.data) + this.view.update(this.model.date) `
+
+4. forEach 不能跳出循环，可以使用 ` some() | every() ` + ` return true ` 跳出循环
+
+5. ` ... + Object.assign ` 一起使用需要 ` Object.assign(obj1, {...obj2}) `
 
 
 

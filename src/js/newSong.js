@@ -39,9 +39,11 @@
         bindEventHub() {
             window.eventHub.on('changeSong', (data) => {
                 this.model.data = data
+                // this.model.init()
             })
             window.eventHub.on('upload', (data) => {
                 this.model.data = data
+                // this.model.init()
             })
             window.eventHub.on('updateSong', () => {
                 this.model.init()

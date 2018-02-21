@@ -151,32 +151,34 @@
                         this.view.uploadActive()
                     })
                 }
-
             })
         },
         bindEventHub() {
-            window.eventHub.on('editSong', (data) => {
-                this.view.editActive()
-                this.model.data = data
-                this.view.update(this.model.data)
-                this.view.$el.on('input', 'input[type=text]', (e) => {
-                    let userInput = {}
-                    this.view.$el.find('input[type=text]').each((index, item) => {
-                        userInput[$(item).attr('name')] = $(item).val()
-                    })
-                    let needs = 'name singer url'.split(' ')
-                    needs.every((it) => userInput[it] === this.model.data[it]) ?
-                        window.eventHub.emit('changeSong', {}) :
-                        window.eventHub.emit('changeSong', JSON.parse(JSON.stringify(this.model.data)))
-                })
+            window.eventHub.on('giveUpEdit', (data) => {
+                this.view.uploadActive()
             })
             window.eventHub.on('newSong', (data) => {
                 this.model.init()
                 this.view.update(this.model.data)
                 this.view.uploadActive()
             })
-            window.eventHub.on('giveUpEdit', (data) => {
-                this.view.uploadActive()
+            window.eventHub.on('editSong', (data) => {
+                this.view.editActive()
+                Object.assign(this.model.data, {...data})
+                this.view.update(this.model.data)
+                this.monitorUserInput()
+            })
+        },
+        monitorUserInput() {
+            this.view.$el.on('input', 'input[type=text]', (e) => {
+                let userInput = {}
+                this.view.$el.find('input[type=text]').each((index, item) => {
+                    userInput[$(item).attr('name')] = $(item).val()
+                })
+                let needs = 'name singer url'.split(' ')
+                needs.every((it) => userInput[it] === this.model.data[it]) ?
+                    window.eventHub.emit('changeSong', {}) :
+                    window.eventHub.emit('changeSong', JSON.parse(JSON.stringify(this.model.data)))
             })
         },
         initQiniu() {
@@ -219,7 +221,6 @@
                         }
                         this.view.update(this.model.data)
                         window.eventHub.emit('upload', JSON.parse(JSON.stringify(this.model.data)))
-                        this.view.editActive()
 
 
 
