@@ -10,9 +10,10 @@
     height: $height;
 }
 
-@mixin fontLine($fontSize, $lineHeight) {
+@mixin fontLineColor($fontSize, $lineHeight, $color) {
     font-size: $fontSize;
     line-height: $lineHeight;
+    color: $color;
 }
 
 @mixin pos($posType, $top, $left) {
@@ -36,9 +37,51 @@
     word-break: break-all;
 }
 
-body {
-    padding-bottom: 500px;
+@mixin changeStatus($original, $new) {
+    display: $original;
+    &.active {
+        display: $new;
+    }
 }
+
+@mixin songPlay() {
+    padding-right: 10px;
+    >.icon {
+        @include widthHeight(24px, 24px);
+        fill: #AAAAAA;
+    }
+}
+
+@mixin h3SongName(){
+    @include fontLineColor(17px, 18px, none);
+    @include textOverFlow();
+    margin-bottom: 3px;
+}
+@mixin spanOrDivSongDescription() {
+    @include flex(flex-start, center);
+    padding: 5px 0;
+    color: #888;
+    &.active {
+        >div.icon-wrapper {
+            display: block;
+        }
+    }
+}
+@mixin divDescriptionText() {
+    flex: 1;
+    @include fontLineColor(12px, 14px, none);
+    @include textOverFlow();
+}
+@mixin divIcon-wrapper(){
+    display: none;
+    margin-right: 4px;
+    >.icon {
+        @include flex(none, none);
+        @include widthHeight(14px, 12px);
+        fill: #FE672E;
+    }
+}
+
 
 header {
     @include flex(none, none);
@@ -46,7 +89,7 @@ header {
     @include pos(fixed, 0, 0);
     width: 100%;
     z-index: 1;
-    >div.top{
+    >div.top {
         @include flex(space-between, center);
         background-color: #D43C33;
         padding: 16px 10px 16px 6px;
@@ -57,14 +100,13 @@ header {
                 @include widthHeight(30px, 30px);
             }
             >h1 {
-                @include fontLine(22px, 24px);
+                @include fontLineColor(22px, 24px, none);
                 font-weight: 400;
             }
         }
         >.upload {
             @include flex(center, center);
-            @include fontLine(16px, 20px);
-            color: #fff;
+            @include fontLineColor(16px, 20px, #fff);
             padding: 4px 10px;
             border: 1px solid #E4857F;
             border-radius: 20px;
@@ -76,10 +118,10 @@ header {
             @include flex(space-around, center);
             border-bottom: 2px solid #E6E6E6;
             >li {
-                @include fontLine(16px, 18px);
+                @include fontLineColor(16px, 18px, #333);
                 padding: 10px 6px;
-                color: #333;
                 margin-bottom: -2px;
+                border-bottom: 2px solid transparent;
                 &.active {
                     color: #D33A31;
                     border-bottom: 2px solid #D33A31;
@@ -88,15 +130,16 @@ header {
         }
     }
 }
+
 main {
     background-color: #FCFCFD;
     width: 100%;
     margin-top: 102px;
-    section.tabItem {
+    >section.recommendedMusic {
+        @include changeStatus(none, block);
         @mixin tabItemH2() {
-            @include fontLine(17px, 17px);
+            @include fontLineColor(17px, 17px, #333);
             border-left: 2px solid #D33A31;
-            color: #333;
             padding-left: 8px;
         }
         >.recommendedList {
@@ -124,18 +167,16 @@ main {
                         }
                         >span.slogan {
                             @include flex(flex-start, center);
-                            @include fontLine(13px, 16px);
+                            @include fontLineColor(13px, 16px, #333);
                             @include multipleLinetextOverflow(2);
-                            color: #333;
                             padding: 6px 2px 0 6px;
                         }
                     }
                     >div.heat {
                         @include flex(center, center);
-                        @include fontLine(12px, 12px);
+                        @include fontLineColor(12px, 12px, #fff);
                         @include pos(absolute, 5px, none);
                         right: 5px;
-                        color: #fff;
                         >.icon {
                             @include widthHeight(12px, 12px);
                             fill: #fff;
@@ -161,43 +202,177 @@ main {
                             flex: 1;
                             width: 0;
                             >h3.songName {
-                                @include fontLine(17px, 17px);
-                                @include textOverFlow();
-                                margin-bottom: 3px;
+                                @include h3SongName();
                             }
                             >span.songDescription {
-                                @include flex(flex-start, center);
-                                padding: 5px 0;
-                                color: #888;
+                                @include spanOrDivSongDescription();
                                 >div.descriptionText {
-                                    flex: 1;
-                                    @include fontLine(12px, 12px);
-                                    @include textOverFlow();
+                                    @include divDescriptionText();
                                 }
                                 >div.icon-wrapper {
-                                    display: none;
-                                    margin-right: 4px;
-                                    >.icon {
-                                        @include flex(none, none);
-                                        @include widthHeight(14px, 12px);
-                                        fill: #FE672E;
-                                    }
-                                }
-                                &.active {
-                                    >div.icon-wrapper {
-                                        display: block;
-                                    }
+                                    @include divIcon-wrapper();
                                 }
                             }
                         }
                         >div.play {
-                            padding-right: 10px;
-                            >.icon {
-                                @include widthHeight(24px, 24px);
-                                fill: #AAAAAA;
-                            }
+                            @include songPlay()
                         }
                     }
+                }
+            }
+        }
+        >div.footer{
+            background: url("../img/bgfoot.png") center center no-repeat;
+            background-size: cover;
+            padding: 54px 0 18px;
+            margin-top: 4px;
+            >a{
+                @include flex(center, center);
+                flex-direction: column;
+                >div.logo{
+                    @include flex(center, center);
+                    >.icon-wrapper{
+                        >.icon{
+                            @include widthHeight(56px, 56px);
+                            fill: #E60012;
+                        }
+                    }
+                    >h1{
+                        @include fontLineColor(36px, 36px, #101010);
+                    }
+                }
+                >div.openApp{
+                    @include fontLineColor(16px, 18px, #d33a31);
+                    padding: 10px 36px;
+                    border: 1px solid #d33a31;
+                    border-radius: 20px;
+                    margin: 8px 0 8px;
+                }
+                >div.copyright{
+                    @include fontLineColor(12px, 14px, #888);
+                }
+            }
+        }
+    }
+    >section.hotSongList {
+        @include changeStatus(none, block);
+        >div.banner {
+            @include flex(none, none);
+            flex-direction: column;
+            background: url("../img/bgBanner.jpg") center center no-repeat;
+            background-size: cover;
+            >div.banner-inner {
+                background-color: rgba(0, 0, 0, 0.2);
+                padding-left: 20px;
+                >div.header {
+                    @include widthHeight(142px,
+                    67px);
+                    background: url("../img/bgSprite.png") right bottom no-repeat;
+                    background-size: 166px 97px;
+                    margin-top: 24px;
+                }
+                >div.updateTime {
+                    @include flex(flex-start,
+                    center);
+                    @include fontLineColor(12px,
+                    12px,
+                    #fff);
+                    padding: 12px 0 30px;
+                }
+            }
+        }
+        >div.hotSongList {
+            >ul>li {
+                >a {
+                    @include flex(flex-start,center);
+                    >div.serialNumber {
+                        @include fontLineColor(16px,16px,#999);
+                        padding: 0 10px;
+                        &.topThree {
+                            color: #df3436;
+                        }
+                    }
+                    >div.songInformation {
+                        flex: 1;
+                        @include flex(space-between,center);
+                        padding: 8px 0 5px;
+                        border-bottom: 1px solid #EFEFF0;
+                        >div.song {
+                            flex: 1;
+                            width: 0;
+                            >h3.songName{
+                                @include h3SongName();
+                            }
+                            >div.songDescription{
+                                @include spanOrDivSongDescription();
+                                >div.icon-wrapper{
+                                    @include divIcon-wrapper();
+                                }
+                                >div.descriptionText{
+                                    @include divDescriptionText()
+                                }
+                            }
+                        }
+                        >div.play {
+                            @include songPlay();
+                        }
+                    }
+                }
+            }
+        }
+        >div.seeAll{
+            @include flex(center, center);
+            padding: 20px 0;
+            >a{
+                @include fontLineColor(15px, 16px, #999);
+            }
+        }
+    }
+    >section.search{
+        >form{
+            @include flex(center, center);
+            padding: 15px 10px;
+            border-bottom: 1px solid #EEEFF0;
+            position: relative;
+            >input{
+                flex: 1;
+                @include fontLineColor(14px, 18px, #333);
+                padding: 6px 30px;
+                border-radius: 18px;
+                border: none;
+                background-color: #EBECEC;
+                &:focus{
+                    outline: none;
+                }
+            }
+            >div.icon-wrapper{
+                @include pos(absolute, 17px, 20px);
+                >.icon{
+                    @include widthHeight(14px, 14px);
+                    fill: #CBCBCC;
+                }
+                &.closeIcon{
+                    left: 340px;
+                    fill: #BCBDBD;
+                }
+            }
+        }
+        >div.hotSearch{
+            padding: 12px 10px 0;
+            >h2{
+                @include fontLineColor(12px, 14px, #666);
+            }
+            >div.searchItem{
+                margin-top: 10px;
+                >a.item{
+                    float: left;
+                    @include fontLineColor(14px, 15px, #333);
+                    padding: 8px 14px;
+                    margin-right: 8px;
+                    margin-bottom: 8px;
+                    border: 1px solid #ECEDF0;
+                    box-shadow: 0px 1px 1px 0px #F6F7F8;
+                    border-radius: 16px;
                 }
             }
         }
