@@ -329,6 +329,7 @@ main {
         }
     }
     >section.search{
+        @include changeStatus(none, block);
         >form{
             @include flex(center, center);
             padding: 15px 10px;

@@ -355,53 +355,57 @@ main {
         font-size: 15px;
         line-height: 16px;
         color: #999; }
-  main > section.search > form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px 10px;
-    border-bottom: 1px solid #EEEFF0;
-    position: relative; }
-    main > section.search > form > input {
-      flex: 1;
-      font-size: 14px;
-      line-height: 18px;
-      color: #333;
-      padding: 6px 30px;
-      border-radius: 18px;
-      border: none;
-      background-color: #EBECEC; }
-      main > section.search > form > input:focus {
-        outline: none; }
-    main > section.search > form > div.icon-wrapper {
-      position: absolute;
-      top: 17px;
-      left: none; }
-      main > section.search > form > div.icon-wrapper > .icon {
-        width: 14px;
-        height: 14px;
-        fill: #CBCBCC; }
-      main > section.search > form > div.icon-wrapper.searchIcon {
-        left: 20px; }
-      main > section.search > form > div.icon-wrapper.closeIcon {
-        right: 20px;
-        fill: #BCBDBD; }
-  main > section.search > div.hotSearch {
-    padding: 12px 10px 0; }
-    main > section.search > div.hotSearch > h2 {
-      font-size: 12px;
-      line-height: 14px;
-      color: #666; }
-    main > section.search > div.hotSearch > div.searchItem {
-      margin-top: 10px; }
-      main > section.search > div.hotSearch > div.searchItem > a.item {
-        float: left;
+  main > section.search {
+    display: none; }
+    main > section.search.active {
+      display: block; }
+    main > section.search > form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 10px;
+      border-bottom: 1px solid #EEEFF0;
+      position: relative; }
+      main > section.search > form > input {
+        flex: 1;
         font-size: 14px;
-        line-height: 15px;
+        line-height: 18px;
         color: #333;
-        padding: 8px 14px;
-        margin-right: 8px;
-        margin-bottom: 8px;
-        border: 1px solid #ECEDF0;
-        box-shadow: 0px 1px 1px 0px #F6F7F8;
-        border-radius: 16px; }
+        padding: 6px 30px;
+        border-radius: 18px;
+        border: none;
+        background-color: #EBECEC; }
+        main > section.search > form > input:focus {
+          outline: none; }
+      main > section.search > form > div.icon-wrapper {
+        position: absolute;
+        top: 17px;
+        left: none; }
+        main > section.search > form > div.icon-wrapper > .icon {
+          width: 14px;
+          height: 14px;
+          fill: #CBCBCC; }
+        main > section.search > form > div.icon-wrapper.searchIcon {
+          left: 20px; }
+        main > section.search > form > div.icon-wrapper.closeIcon {
+          right: 20px;
+          fill: #BCBDBD; }
+    main > section.search > div.hotSearch {
+      padding: 12px 10px 0; }
+      main > section.search > div.hotSearch > h2 {
+        font-size: 12px;
+        line-height: 14px;
+        color: #666; }
+      main > section.search > div.hotSearch > div.searchItem {
+        margin-top: 10px; }
+        main > section.search > div.hotSearch > div.searchItem > a.item {
+          float: left;
+          font-size: 14px;
+          line-height: 15px;
+          color: #333;
+          padding: 8px 14px;
+          margin-right: 8px;
+          margin-bottom: 8px;
+          border: 1px solid #ECEDF0;
+          box-shadow: 0px 1px 1px 0px #F6F7F8;
+          border-radius: 16px; }
