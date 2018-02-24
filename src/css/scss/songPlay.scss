@@ -1,37 +1,49 @@
 @import '../initializes/reset.scss';
 @import '../initializes/mixin.scss';
 
-@mixin bg($width, $height, $url){
+@mixin bg($width, $height, $url) {
     @include widthHeight($width, $height);
     background: url($url) center center no-repeat;
     background-size: cover;
 }
 
-div.app{
+div.app {
     background-color: rgba(0, 0, 0, 0.4);
     height: 100vh;
-    border-top: 0.1px; 
+    border-top: 0.1px;
     position: relative;
-    >div.logo{
+    >div.logo {
         @include posTopLeft(absolute, 12px, 10px);
         @include bg(100px, 17px, '../../img/logo.png');
     }
-    >div.wrapper{
+    >div.wrapper {
         @include flex(center, center);
         padding-top: 70px;
-        >div.record{
+        >div.record {
             @include flex(center, center);
             @include bg(296px, 296px, '../../img/disc-ip6.png');
-            >div.pause{
+            &.active {
+                animation: play 18s infinite;
+                @keyframes play {
+                    0% {
+                        transform: rotate(0)
+                    }
+                    100% {
+                        transform: rotate(360deg)
+                    }
+                }
+            }
+            >div.pause {
                 @include bg(56px, 56px, '../../img/pause.png');
                 display: none;
-                &.active{
+                &.active {
                     display: block;
                 }
             }
         }
-        >div.play{
-            @include posTopLeft(absolute, 0, 173px);
+        >div.play {
+            @include posTopLeft(absolute, 0, 50%);
+            transform: translateX(-15px);
             @include bg(96px, 137px, '../../img/needle-ip6.png');
         }
     }

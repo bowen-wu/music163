@@ -4,7 +4,7 @@
         template: `
         <div class="logo"></div>
         <div class="wrapper">
-            <div class="record">
+            <div id="record" class="record active">
                 <div id="pause" class="pause"></div>
             </div>
             <div class="play"></div>
@@ -18,8 +18,10 @@
         changeStatus(status) {
             if(status === 'play'){
                 $(this.el).find('#pause').addClass('active')
+                $(this.el).find('#record').removeClass('active')
             }else if(status === 'pause'){
                 $(this.el).find('#pause').removeClass('active')
+                $(this.el).find('#record').addClass('active')
             }
         },
         active(data) {},
