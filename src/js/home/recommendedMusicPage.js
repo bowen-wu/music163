@@ -28,8 +28,20 @@
             this.view.init()
             this.model.init()
             this.view.render(this.model.data)
+            this.importEcommendedListModule()
+            this.importNewSongModule()
             this.bindEvents()
             this.bindEventHub()
+        },
+        importEcommendedListModule() {
+            let script = document.createElement('script')
+            script.src = './js/home/recommendedList.js'
+            document.body.append(script)
+        },
+        importNewSongModule() {
+            let script = document.createElement('script')
+            script.src= './js/home/newSong.js'
+            document.body.append(script)
         },
         bindEvents() {
 
