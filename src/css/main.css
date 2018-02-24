@@ -376,13 +376,15 @@ main {
     main > section.search > form > div.icon-wrapper {
       position: absolute;
       top: 17px;
-      left: 20px; }
+      left: none; }
       main > section.search > form > div.icon-wrapper > .icon {
         width: 14px;
         height: 14px;
         fill: #CBCBCC; }
+      main > section.search > form > div.icon-wrapper.searchIcon {
+        left: 20px; }
       main > section.search > form > div.icon-wrapper.closeIcon {
-        left: 340px;
+        right: 20px;
         fill: #BCBDBD; }
   main > section.search > div.hotSearch {
     padding: 12px 10px 0; }

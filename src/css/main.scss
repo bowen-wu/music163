@@ -346,13 +346,16 @@ main {
                 }
             }
             >div.icon-wrapper{
-                @include pos(absolute, 17px, 20px);
+                @include pos(absolute, 17px, none);
                 >.icon{
                     @include widthHeight(14px, 14px);
                     fill: #CBCBCC;
                 }
+                &.searchIcon{
+                    left: 20px;
+                }
                 &.closeIcon{
-                    left: 340px;
+                    right: 20px;
                     fill: #BCBDBD;
                 }
             }
