@@ -38,19 +38,44 @@ body {
   overflow: hidden; }
 
 div.app {
-  background-color: rgba(0, 0, 0, 0.4); }
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100vh;
+  border-top: 0.1px;
+  position: relative; }
   div.app > div.logo {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    width: 100px;
+    height: 17px;
+    background: url("../../img/logo.png") center center no-repeat;
+    background-size: cover; }
+  div.app > div.wrapper {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    padding-left: 10px; }
-    div.app > div.logo > div.icon-wrapper {
-      margin-right: 6px; }
-      div.app > div.logo > div.icon-wrapper > .icon {
-        width: 20px;
-        height: 20px;
-        fill: #E50113; }
-    div.app > div.logo > h1 {
-      font-size: 16px;
-      line-height: 18px;
-      color: #fff; }
+    padding-top: 70px; }
+    div.app > div.wrapper > div.record {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 296px;
+      height: 296px;
+      background: url("../../img/disc-ip6.png") center center no-repeat;
+      background-size: cover; }
+      div.app > div.wrapper > div.record > div.pause {
+        width: 56px;
+        height: 56px;
+        background: url("../../img/pause.png") center center no-repeat;
+        background-size: cover;
+        display: none; }
+        div.app > div.wrapper > div.record > div.pause.active {
+          display: block; }
+    div.app > div.wrapper > div.play {
+      position: absolute;
+      top: 0;
+      left: 173px;
+      width: 96px;
+      height: 137px;
+      background: url("../../img/needle-ip6.png") center center no-repeat;
+      background-size: cover; }
