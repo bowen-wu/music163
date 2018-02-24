@@ -286,7 +286,7 @@ let {accessKey, secretKey} = content
     1. 更新 ` model.data `
     2. ` view ` 相关操作 ==> ` this.view.render(this.model.data) + this.view.create(this.model.data) + this.view.update(this.model.date) `
 
-4. forEach 不能跳出循环，可以使用 ` some() | every() ` + ` return true ` 跳出循环
+4. forEach 不能跳出循环，可以使用 ` some() ` + `return true` | every() ` + ` return false ` 跳出循环
 
 5. ` ... + Object.assign ` 一起使用需要 ` Object.assign(obj1, {...obj2}) `
 
