@@ -1,0 +1,39 @@
+@mixin flex($justifyContent, $alignItems) {
+    display: flex;
+    justify-content: $justifyContent;
+    align-items: $alignItems;
+}
+
+@mixin widthHeight($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+
+@mixin fontLineColor($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+
+@mixin posTopLeft($posType, $top, $left) {
+    position: $posType;
+    top: $top;
+    left: $left;
+}
+
+@mixin textOverFlow() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+
+@mixin multipleLinetextOverflow($rowNum) {
+    display: -webkit-box;
+    -webkit-line-clamp: $rowNum;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all;
+}

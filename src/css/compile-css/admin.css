@@ -51,8 +51,8 @@ body {
     background-color: #C72E2E;
     cursor: pointer; }
     .page > header .icon {
-      min-width: 30px;
-      min-height: 30px;
+      width: 30px;
+      height: 30px;
       fill: #fff; }
     .page > header h1 {
       font-size: 26px;
@@ -126,8 +126,8 @@ body {
           display: flex;
           justify-content: center;
           align-items: center;
-          min-width: 740px;
-          min-height: 80px;
+          width: 740px;
+          height: 80px;
           font-size: 20px;
           line-height: 40px;
           color: #000;
@@ -182,8 +182,8 @@ body {
             line-height: 30px;
             color: #131414; }
           .page section > main > .editSong > header .icon {
-            min-width: 30px;
-            min-height: 30px;
+            width: 30px;
+            height: 30px;
             margin-left: 10px;
             fill: #ddd; }
         .page section > main > .editSong form {
@@ -267,8 +267,8 @@ body {
             cursor: pointer;
             transition: all 0.2s; }
             .page section > div.mask > div.dialog > header > div.close > .icon {
-              min-width: 20px;
-              min-height: 20px;
+              width: 20px;
+              height: 20px;
               fill: #fff; }
             .page section > div.mask > div.dialog > header > div.close:hover {
               transform: rotate(90deg); }
@@ -278,8 +278,8 @@ body {
           align-items: center;
           padding: 30px 90px 38px 26px; }
           .page section > div.mask > div.dialog > div.content > div.icon-wrapper > .icon {
-            min-width: 34px;
-            min-height: 34px;
+            width: 34px;
+            height: 34px;
             fill: #C62F2F; }
           .page section > div.mask > div.dialog > div.content > div.prompt {
             font-size: 16px;
@@ -335,8 +335,8 @@ body {
         content: " ";
         display: block;
         position: absolute;
-        min-width: 6px;
-        min-height: 6px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background: #C62F2F;
         margin: -3px 0 0 -3px; }

@@ -1,0 +1,21 @@
+@import '../initializes/reset.scss';
+@import '../initializes/mixin.scss';
+
+
+div.app{
+    background-color: rgba(0, 0, 0, 0.4);
+    >div.logo{
+        @include flex(flex-start, center);
+        padding-left: 10px;
+        >div.icon-wrapper{
+            margin-right: 6px;
+            >.icon{
+                @include widthHeight(20px, 20px);
+                fill: #E50113;
+            }
+        }
+        >h1{
+            @include fontLineColor(16px, 18px, #fff);
+        }
+    }
+}

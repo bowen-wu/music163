@@ -1,26 +1,6 @@
-@import './reset.scss';
-@mixin flex($justifyContent, $alignItems) {
-    display: flex;
-    justify-content: $justifyContent;
-    align-items: $alignItems;
-}
+@import '../initializes/reset.scss';
+@import '../initializes/mixin.scss';
 
-@mixin widthHeight($width, $height) {
-    min-width: $width;
-    min-height: $height;
-}
-
-@mixin posTopLeft($type, $top, $left) {
-    position: $type;
-    top: $top;
-    left: $left;
-}
-
-@mixin fontLineColor($fontSize, $lineHeight, $color) {
-    font-size: $fontSize;
-    line-height: $lineHeight;
-    color: $color;
-}
 
 @mixin btn() {
     @include fontLineColor(16px, 30px, #595959);

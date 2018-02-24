@@ -1,41 +1,5 @@
-@import './reset.scss';
-@mixin flex($justifyContent, $alignItems) {
-    display: flex;
-    justify-content: $justifyContent;
-    align-items: $alignItems;
-}
-
-@mixin widthHeight($width, $height) {
-    width: $width;
-    height: $height;
-}
-
-@mixin fontLineColor($fontSize, $lineHeight, $color) {
-    font-size: $fontSize;
-    line-height: $lineHeight;
-    color: $color;
-}
-
-@mixin pos($posType, $top, $left) {
-    position: $posType;
-    top: $top;
-    left: $left;
-}
-
-@mixin textOverFlow() {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-all;
-}
-
-@mixin multipleLinetextOverflow($rowNum) {
-    display: -webkit-box;
-    -webkit-line-clamp: $rowNum;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    word-break: break-all;
-}
+@import '../initializes/reset.scss';
+@import '../initializes/mixin.scss';
 
 @mixin changeStatus($original, $new) {
     display: $original;
@@ -82,11 +46,10 @@
     }
 }
 
-
 header {
     @include flex(none, none);
     flex-direction: column;
-    @include pos(fixed, 0, 0);
+    @include posTopLeft(fixed, 0, 0);
     width: 100%;
     z-index: 1;
     >div.top {
@@ -155,7 +118,7 @@ main {
                     margin-bottom: 14px;
                 }
                 >li {
-                    @include pos(relative, none, none);
+                    @include posTopLeft(relative, none, none);
                     &:nth-child(2) {
                         margin: 0 4px;
                     }
@@ -175,7 +138,7 @@ main {
                     >div.heat {
                         @include flex(center, center);
                         @include fontLineColor(12px, 12px, #fff);
-                        @include pos(absolute, 5px, none);
+                        @include posTopLeft(absolute, 5px, none);
                         right: 5px;
                         >.icon {
                             @include widthHeight(12px, 12px);
@@ -222,7 +185,7 @@ main {
             }
         }
         >div.footer{
-            background: url("../img/bgfoot.png") center center no-repeat;
+            background: url("../../img/bgfoot.png") center center no-repeat;
             background-size: cover;
             padding: 54px 0 18px;
             margin-top: 4px;
@@ -259,7 +222,7 @@ main {
         >div.banner {
             @include flex(none, none);
             flex-direction: column;
-            background: url("../img/bgBanner.jpg") center center no-repeat;
+            background: url("../../img/bgBanner.jpg") center center no-repeat;
             background-size: cover;
             >div.banner-inner {
                 background-color: rgba(0, 0, 0, 0.2);
@@ -267,7 +230,7 @@ main {
                 >div.header {
                     @include widthHeight(142px,
                     67px);
-                    background: url("../img/bgSprite.png") right bottom no-repeat;
+                    background: url("../../img/bgSprite.png") right bottom no-repeat;
                     background-size: 166px 97px;
                     margin-top: 24px;
                 }
@@ -347,7 +310,7 @@ main {
                 }
             }
             >div.icon-wrapper{
-                @include pos(absolute, 17px, none);
+                @include posTopLeft(absolute, 17px, none);
                 >.icon{
                     @include widthHeight(14px, 14px);
                     fill: #CBCBCC;

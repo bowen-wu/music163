@@ -222,7 +222,7 @@ main {
             height: 24px;
             fill: #AAAAAA; }
     main > section.recommendedMusic > div.footer {
-      background: url("../img/bgfoot.png") center center no-repeat;
+      background: url("../../img/bgfoot.png") center center no-repeat;
       background-size: cover;
       padding: 54px 0 18px;
       margin-top: 4px; }
@@ -264,7 +264,7 @@ main {
       justify-content: none;
       align-items: none;
       flex-direction: column;
-      background: url("../img/bgBanner.jpg") center center no-repeat;
+      background: url("../../img/bgBanner.jpg") center center no-repeat;
       background-size: cover; }
       main > section.hotSongList > div.banner > div.banner-inner {
         background-color: rgba(0, 0, 0, 0.2);
@@ -272,7 +272,7 @@ main {
         main > section.hotSongList > div.banner > div.banner-inner > div.header {
           width: 142px;
           height: 67px;
-          background: url("../img/bgSprite.png") right bottom no-repeat;
+          background: url("../../img/bgSprite.png") right bottom no-repeat;
           background-size: 166px 97px;
           margin-top: 24px; }
         main > section.hotSongList > div.banner > div.banner-inner > div.updateTime {

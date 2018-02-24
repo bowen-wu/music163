@@ -16,7 +16,7 @@
                 console.log($(this.el).find('ul.songList'))
                 $(this.el).find('ul.songList').append($(`
                 <li>
-                    <a href="#">
+                    <a href=./songPlay.html?id=${song.id}>
                         <div class="song">
                             <h3 data-song-id=${ song.id } class="songName">${ song.name }</h3>
                             <span class="songDescription">
