@@ -6,20 +6,10 @@
                 <div id="uploadArea" class="uploadArea">
                     <p>拖曳音乐到此区域上传</p>
                     <p>文件大小不能超过 40MB</p>
-                    <div id="uploading" class="uploading">
-                        <div class="lds-roller">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
                 </div>
-                <div id="upload" class="upload">选择音乐</div>
+                <div id="upload" class="upload">
+                    <span>选择音乐</span>
+                </div>
             </div>
             <div id="editSong" class="editSong">
                 <header>
@@ -67,14 +57,12 @@
             $(this.el).find('#editSong').removeClass('active')
         },
         loadingActive() {
-            $(this.el).find('#uploading').addClass('active')
             $(this.el).find('#uploadArea').addClass('active')
             $(this.el).find('#upload').addClass('active')
         },
         editActive() {
             $(this.el).find('#upload').removeClass('active')
             $(this.el).find('#uploadArea').removeClass('active')
-            $(this.el).find('#uploading').removeClass('active')
             $(this.el).find('#upload-outer').addClass('deactive')
             $(this.el).find('#editSong').addClass('active')
         },
@@ -204,11 +192,12 @@
                     },
                     'UploadProgress': (up, file) => {
                         this.view.loadingActive()
-
+                        window.eventHub.emit('loading', this.model.data)
                         // 每个文件上传时,处理相关的事情
                     },
                     'FileUploaded': (up, file, info) => {
                         this.view.editActive()
+                        window.eventHub.emit('loaded', this.model.data)
                         // domain 是 bucket（篮子） 域名
                         let domain = up.getOption('domain')
                         // info.response 服务端返回的json，res 解析后的响应对象
