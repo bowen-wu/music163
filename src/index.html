@@ -23,16 +23,11 @@
                 <a href="#">下载APP</a>
             </span>
         </div>
-        <nav>
-            <ul>
-                <li>推荐音乐</li>
-                <li>热歌榜</li>
-                <li class="active">搜索</li>
-            </ul>
+        <nav id="topNav">
         </nav>
     </header>
     <main>
-        <section class="recommendedMusic">
+        <section class="recommendedMusic active">
             <div class="recommendedList">
                 <h2>推荐歌单</h2>
                 <ul class="row">
@@ -492,9 +487,11 @@
                     </li>
                 </ul>
             </div>
-            <div class="seeAll"><a href="#">查看完整榜单 ></a></div>
+            <div class="seeAll">
+                <a href="#">查看完整榜单 ></a>
+            </div>
         </section>
-        <section class="search active">
+        <section class="search">
             <form>
                 <div class="searchIcon icon-wrapper">
                     <svg class="icon" aria-hidden="true">
@@ -521,7 +518,14 @@
         </section>
     </main>
 
-    <script src="./js/main.js"></script>
-</body>
+    <!-- leanclode -->
+    <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <script src="./js/initializes/avInit.js"></script>
+    <!-- 第三方库依赖 -->
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- 事件处理中心 eventHub -->
+    <script src="./js/eventHub.js"></script>
 
+    <script src="./js/home/topNav.js"></script>
+</body>
 </html>
