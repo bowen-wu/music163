@@ -4,12 +4,23 @@
         template: `
         <div class="logo"></div>
         <div class="wrapper">
-            <div id="record" class="record active">
+            <div id="rotate" class="rotate active">
+                <div id="record" class="record">
+                    <img src="./img/disc-ip6.png" alt="record" width=296 height=296/>
+                </div>
                 <div id="recordLight" class="recordLight">
-                    <div id="pause" class="pause"></div>
+                    <img src="./img/disc_light-ip6.png" alt="recordLight" width=296 height=296/>
+                </div>
+                <div id="cover" class="cover">
+                    <img src="./img/female.jpg" alt="cover" width=186 height=186 />
+                </div>
+                <div id="pause" class="pause">
+                    <img src="./img/pause.png" alt="pause" width=56 height=56 />
                 </div>
             </div>
-            <div class="play"></div>
+            <div class="play">
+                
+            </div>
         </div>
         <div id="showLyric" class="showLyric">
             <h1>可以了</h1>

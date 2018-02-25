@@ -37,11 +37,29 @@ body {
   fill: currentColor;
   overflow: hidden; }
 
+@keyframes play {
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } }
+
 div.app {
   background-color: rgba(0, 0, 0, 0.4);
   height: 100vh;
   border-top: 0.1px;
   position: relative; }
+  div.app::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: url("../../img/female.jpg") center center no-repeat;
+    background-size: cover;
+    filter: blur(5px); }
   div.app > div.logo {
     position: absolute;
     top: 12px;
@@ -55,38 +73,47 @@ div.app {
     justify-content: center;
     align-items: center;
     padding-top: 70px; }
-    div.app > div.wrapper > div.record {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    div.app > div.wrapper > div.rotate {
+      position: relative;
+      top: none;
+      left: none;
       width: 296px;
       height: 296px;
-      background: url("../../img/disc-ip6.png") center center no-repeat;
-      background-size: cover; }
-      div.app > div.wrapper > div.record.active {
-        animation: play 18s infinite; }
-
-@keyframes play {
-  0% {
-    transform: rotate(0); }
-  100% {
-    transform: rotate(360deg); } }
-      div.app > div.wrapper > div.record > div.recordLight {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        background: url("../../img/disc-ip6.png") center center no-repeat;
-        background-size: cover; }
-        div.app > div.wrapper > div.record > div.recordLight > div.pause {
-          width: 56px;
-          height: 56px;
-          background: url("../../img/pause.png") center center no-repeat;
-          background-size: cover;
-          display: none; }
-          div.app > div.wrapper > div.record > div.recordLight > div.pause.active {
-            display: block; }
+      animation-play-state: paused; }
+      div.app > div.wrapper > div.rotate.active {
+        animation: play 20s linear infinite; }
+      div.app > div.wrapper > div.rotate > div.record {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); }
+        div.app > div.wrapper > div.rotate > div.record > img {
+          vertical-align: top; }
+      div.app > div.wrapper > div.rotate > div.recordLight {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); }
+        div.app > div.wrapper > div.rotate > div.recordLight > img {
+          vertical-align: top; }
+      div.app > div.wrapper > div.rotate > div.cover {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1; }
+        div.app > div.wrapper > div.rotate > div.cover > img {
+          vertical-align: top; }
+      div.app > div.wrapper > div.rotate > div.pause {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none; }
+        div.app > div.wrapper > div.rotate > div.pause > img {
+          vertical-align: top; }
+        div.app > div.wrapper > div.rotate > div.pause.active {
+          display: block; }
     div.app > div.wrapper > div.play {
       position: absolute;
       top: 0;
@@ -96,3 +123,13 @@ div.app {
       height: 137px;
       background: url("../../img/needle-ip6.png") center center no-repeat;
       background-size: cover; }
+  div.app > div.showLyric {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; }
+    div.app > div.showLyric > h1 {
+      font-size: 18px;
+      line-height: 20px;
+      color: #fefefe;
+      padding-top: 18px; }

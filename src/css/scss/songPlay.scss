@@ -7,11 +7,38 @@
     background-size: cover;
 }
 
+@mixin recordPos() {
+    @include posTopLeft(absolute, 50%, 50%);
+    transform: translate(-50%, -50%);
+    >img {
+        vertical-align: top;
+    }
+}
+@keyframes play {
+    0% {
+        transform: rotate(0)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
 div.app {
     background-color: rgba(0, 0, 0, 0.4);
     height: 100vh;
     border-top: 0.1px;
     position: relative;
+    &::before{
+        content: '';
+        display: block;
+        @include posTopLeft(absolute, 0, 0);
+        @include widthHeight(100%, 100%);
+        z-index: -1;
+        background: url('../../img/female.jpg') center center no-repeat;
+        background-size: cover;
+        filter: blur(5px);
+    }
+
     >div.logo {
         @include posTopLeft(absolute, 12px, 10px);
         @include bg(100px, 17px, '../../img/logo.png');
@@ -19,36 +46,43 @@ div.app {
     >div.wrapper {
         @include flex(center, center);
         padding-top: 70px;
-        >div.record {
-            @include flex(center, center);
-            @include bg(296px, 296px, '../../img/disc-ip6.png');
-            &.active {
-                animation: play 18s infinite;
-                @keyframes play {
-                    0% {
-                        transform: rotate(0)
-                    }
-                    100% {
-                        transform: rotate(360deg)
-                    }
+        >div.rotate {
+            @include posTopLeft(relative, none, none);
+            @include widthHeight(296px, 296px);
+            animation-play-state: paused;
+            &.active{
+                animation: play 20s linear infinite;
+            }
+            >div.record {
+                @include recordPos();
+            }
+            >div.recordLight {
+                @include recordPos();
+            }
+            >div.cover {
+                @include recordPos();
+                z-index: -1;
+            }
+            >div.pause {
+                @include recordPos();
+                display: none;
+                &.active {
+                    display: block;
                 }
             }
-            >div.recordLight{
-                @include flex(center, center);
-                @include bg(100%, 100%, '../../img/disc-ip6.png');
-                >div.pause {
-                    @include bg(56px, 56px, '../../img/pause.png');
-                    display: none;
-                    &.active {
-                        display: block;
-                    }
-                }
-            }
-        }
+        } 
         >div.play {
             @include posTopLeft(absolute, 0, 50%);
             transform: translateX(-15px);
             @include bg(96px, 137px, '../../img/needle-ip6.png');
+        }
+    }
+    >div.showLyric {
+        @include flex(center, center);
+        flex-direction: column;
+        >h1 {
+            @include fontLineColor(18px, 20px, #fefefe);
+            padding-top: 18px;
         }
     }
 }
