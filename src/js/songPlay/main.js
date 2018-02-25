@@ -2,7 +2,7 @@
     let view = {
         el: 'div#app',
         template: `
-        <div id="bg" class="bg"></div>
+        <div id="bg" class="bg" ></div>
         <div class="logo"></div>
         <div class="wrapper">
             <div id="rotate" class="rotate">
@@ -13,7 +13,7 @@
                     <img src="./img/disc_light-ip6.png" alt="recordLight" width=296 height=296/>
                 </div>
                 <div id="cover" class="cover">
-                    <img src="./img/female.jpg" alt="cover" width=186 height=186 />
+                    <img src="#" alt="cover" width=186 height=186 />
                 </div>
                 <div id="pause" class="pause">
                     <img src="./img/pause.png" alt="pause" width=56 height=56 />
@@ -45,10 +45,9 @@
         },
         update(data) {
             console.log(data)
-            
-            
+            this.$el.find('div#bg').css({'background-image': `url(${data.cover})`})
+            this.$el.find('div#cover > img').attr('src', data.cover)
             console.log(1111)
-            console.log(xxx)
 
         },
         changeStatus(status) {
