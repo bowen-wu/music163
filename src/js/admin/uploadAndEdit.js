@@ -83,12 +83,12 @@
         data: {},
         init() {
             this.data = {
+                id: '',
                 name: '',
                 singer: '',
                 url: '',
                 cover: '',
-                lyric: '',
-                id: '',
+                lyric: ''
             }
         },
         create(data) {

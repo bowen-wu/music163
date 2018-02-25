@@ -13,10 +13,12 @@
         data: {},
         init() {
             this.data = {
+                id: '',
                 name: '',
                 singer: '',
                 url: '',
-                id: '',
+                cover: '',
+                lyric: ''
             }
         },
     }

@@ -33,11 +33,15 @@ div.app {
                     }
                 }
             }
-            >div.pause {
-                @include bg(56px, 56px, '../../img/pause.png');
-                display: none;
-                &.active {
-                    display: block;
+            >div.recordLight{
+                @include flex(center, center);
+                @include bg(100%, 100%, '../../img/disc-ip6.png');
+                >div.pause {
+                    @include bg(56px, 56px, '../../img/pause.png');
+                    display: none;
+                    &.active {
+                        display: block;
+                    }
                 }
             }
         }

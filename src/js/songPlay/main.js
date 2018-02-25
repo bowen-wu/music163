@@ -5,15 +5,36 @@
         <div class="logo"></div>
         <div class="wrapper">
             <div id="record" class="record active">
-                <div id="pause" class="pause"></div>
+                <div id="recordLight" class="recordLight">
+                    <div id="pause" class="pause"></div>
+                </div>
             </div>
             <div class="play"></div>
+        </div>
+        <div id="showLyric" class="showLyric">
+            <h1>可以了</h1>
+            <div id="lyric-wrapper" class="lyric-wrapper">
+                <div id="lyric" class="lyric">
+                    xxxxxxxx
+                    yyyyyyyyy
+                    zzzzzzzzz
+                    rrrrrrrrr
+                    ttttttttt
+                </div>
+            </div>
+        </div>
+        <div id="action" class="action">
+            <div><a href="#">打开</a></div>
+            <div><a href="#">下载</a></div>
         </div>`,
         init() {
             this.$el = $(this.el)
         },
         render(data) {
             $(this.el).html(this.template)
+        },
+        update(data) {
+
         },
         changeStatus(status) {
             if(status === 'play'){
@@ -32,7 +53,9 @@
             id: '',
             name: '',
             singer: '',
-            url: ''
+            url: '',
+            cover: '',
+            lyric: ''
         },
         init() {
 
@@ -54,7 +77,9 @@
             this.model.init()
             this.view.render(this.model.data)
             this.getId()
+            console.log(JSON.stringify(this.model.data))
             this.model.update().then(() => {
+                console.log(JSON.stringify(this.model.data))
                 this.createAudio()
                 this.play()
                 this.bindEvents()
