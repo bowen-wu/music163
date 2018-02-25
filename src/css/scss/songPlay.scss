@@ -28,9 +28,7 @@ div.app {
     height: 100vh;
     border-top: 0.1px;
     position: relative;
-    &::before{
-        content: '';
-        display: block;
+    >div.bg{
         @include posTopLeft(absolute, 0, 0);
         @include widthHeight(100%, 100%);
         z-index: -1;
@@ -38,7 +36,6 @@ div.app {
         background-size: cover;
         filter: blur(5px);
     }
-
     >div.logo {
         @include posTopLeft(absolute, 12px, 10px);
         @include bg(100px, 17px, '../../img/logo.png');
@@ -49,9 +46,10 @@ div.app {
         >div.rotate {
             @include posTopLeft(relative, none, none);
             @include widthHeight(296px, 296px);
-            animation-play-state: paused;
+            animation: play 20s linear infinite;
+
             &.active{
-                animation: play 20s linear infinite;
+                animation-play-state: paused;
             }
             >div.record {
                 @include recordPos();

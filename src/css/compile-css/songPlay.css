@@ -48,9 +48,7 @@ div.app {
   height: 100vh;
   border-top: 0.1px;
   position: relative; }
-  div.app::before {
-    content: '';
-    display: block;
+  div.app > div.bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -79,9 +77,9 @@ div.app {
       left: none;
       width: 296px;
       height: 296px;
-      animation-play-state: paused; }
+      animation: play 20s linear infinite; }
       div.app > div.wrapper > div.rotate.active {
-        animation: play 20s linear infinite; }
+        animation-play-state: paused; }
       div.app > div.wrapper > div.rotate > div.record {
         position: absolute;
         top: 50%;

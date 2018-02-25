@@ -2,9 +2,10 @@
     let view = {
         el: 'div#app',
         template: `
+        <div id="bg" class="bg"></div>
         <div class="logo"></div>
         <div class="wrapper">
-            <div id="rotate" class="rotate active">
+            <div id="rotate" class="rotate">
                 <div id="record" class="record">
                     <img src="./img/disc-ip6.png" alt="record" width=296 height=296/>
                 </div>
@@ -18,9 +19,7 @@
                     <img src="./img/pause.png" alt="pause" width=56 height=56 />
                 </div>
             </div>
-            <div class="play">
-                
-            </div>
+            <div class="play"></div>
         </div>
         <div id="showLyric" class="showLyric">
             <h1>可以了</h1>
@@ -42,18 +41,23 @@
             this.$el = $(this.el)
         },
         render(data) {
-            $(this.el).html(this.template)
+            this.$el.html(this.template)
         },
         update(data) {
+            console.log(data)
+            
+            
+            console.log(1111)
+            console.log(xxx)
 
         },
         changeStatus(status) {
             if(status === 'play'){
-                $(this.el).find('#pause').addClass('active')
-                $(this.el).find('#record').removeClass('active')
+                this.$el.find('#pause').addClass('active')
+                this.$el.find('#rotate').addClass('active')
             }else if(status === 'pause'){
-                $(this.el).find('#pause').removeClass('active')
-                $(this.el).find('#record').addClass('active')
+                this.$el.find('#pause').removeClass('active')
+                this.$el.find('#rotate').removeClass('active')
             }
         },
         active(data) {},
@@ -88,14 +92,16 @@
             this.model.init()
             this.view.render(this.model.data)
             this.getId()
-            console.log(JSON.stringify(this.model.data))
+            this.update()
+            this.bindEventHub()
+        },
+        update() {
             this.model.update().then(() => {
-                console.log(JSON.stringify(this.model.data))
+                this.view.update(this.model.data)
                 this.createAudio()
                 this.play()
                 this.bindEvents()
             })
-            this.bindEventHub()
         },
         createAudio() {
             let audio = document.createElement('audio')
