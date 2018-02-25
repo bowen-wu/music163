@@ -149,46 +149,47 @@ div.app {
     justify-content: center;
     align-items: center;
     padding-top: 70px; }
-    div.app > div.wrapper > div.rotate {
+    div.app > div.wrapper > div.rotate-wrapper {
       position: relative;
       top: none;
-      left: none;
-      width: 296px;
-      height: 296px;
-      animation: play 20s linear infinite; }
-      div.app > div.wrapper > div.rotate.active {
-        animation-play-state: paused; }
-      div.app > div.wrapper > div.rotate > div.record {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%); }
-        div.app > div.wrapper > div.rotate > div.record > img {
-          vertical-align: top; }
-      div.app > div.wrapper > div.rotate > div.recordLight {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%); }
-        div.app > div.wrapper > div.rotate > div.recordLight > img {
-          vertical-align: top; }
-      div.app > div.wrapper > div.rotate > div.cover {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: -1; }
-        div.app > div.wrapper > div.rotate > div.cover > img {
-          vertical-align: top; }
-      div.app > div.wrapper > div.rotate > div.pause {
+      left: none; }
+      div.app > div.wrapper > div.rotate-wrapper > div.rotate {
+        width: 296px;
+        height: 296px;
+        animation: play 20s linear infinite; }
+        div.app > div.wrapper > div.rotate-wrapper > div.rotate.active {
+          animation-play-state: paused; }
+        div.app > div.wrapper > div.rotate-wrapper > div.rotate > div.record {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); }
+          div.app > div.wrapper > div.rotate-wrapper > div.rotate > div.record > img {
+            vertical-align: top; }
+        div.app > div.wrapper > div.rotate-wrapper > div.rotate > div.recordLight {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); }
+          div.app > div.wrapper > div.rotate-wrapper > div.rotate > div.recordLight > img {
+            vertical-align: top; }
+        div.app > div.wrapper > div.rotate-wrapper > div.rotate > div.cover {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: -1; }
+          div.app > div.wrapper > div.rotate-wrapper > div.rotate > div.cover > img {
+            vertical-align: top; }
+      div.app > div.wrapper > div.rotate-wrapper > div.pause {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         display: none; }
-        div.app > div.wrapper > div.rotate > div.pause > img {
+        div.app > div.wrapper > div.rotate-wrapper > div.pause > img {
           vertical-align: top; }
-        div.app > div.wrapper > div.rotate > div.pause.active {
+        div.app > div.wrapper > div.rotate-wrapper > div.pause.active {
           display: block; }
     div.app > div.wrapper > div.play {
       position: absolute;

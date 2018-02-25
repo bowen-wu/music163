@@ -21,15 +21,17 @@
         <div id="bg" class="bg" ></div>
         <div class="logo"></div>
         <div class="wrapper">
-            <div id="rotate" class="rotate active">
-                <div id="record" class="record">
-                    <img src="./img/disc-ip6.png" alt="record" width=296 height=296/>
-                </div>
-                <div id="recordLight" class="recordLight">
-                    <img src="./img/disc_light-ip6.png" alt="recordLight" width=296 height=296/>
-                </div>
-                <div id="cover" class="cover">
-                    <img src="#" alt="cover" width=186 height=186 />
+            <div class="rotate-wrapper">
+                <div id="rotate" class="rotate active">
+                    <div id="record" class="record">
+                        <img src="./img/disc-ip6.png" alt="record" width=296 height=296/>
+                    </div>
+                    <div id="recordLight" class="recordLight">
+                        <img src="./img/disc_light-ip6.png" alt="recordLight" width=296 height=296/>
+                    </div>
+                    <div id="cover" class="cover">
+                        <img src="#" alt="cover" width=186 height=186 />
+                    </div>
                 </div>
                 <div id="pause" class="pause">
                     <img src="./img/pause.png" alt="pause" width=56 height=56 />

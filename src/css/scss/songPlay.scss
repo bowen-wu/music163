@@ -135,23 +135,24 @@ div.app {
     >div.wrapper {
         @include flex(center, center);
         padding-top: 70px;
-        >div.rotate {
+        >div.rotate-wrapper {
             @include posTopLeft(relative, none, none);
-            @include widthHeight(296px, 296px);
-            animation: play 20s linear infinite;
-
-            &.active{
-                animation-play-state: paused;
-            }
-            >div.record {
-                @include recordPos();
-            }
-            >div.recordLight {
-                @include recordPos();
-            }
-            >div.cover {
-                @include recordPos();
-                z-index: -1;
+            >div.rotate{
+                @include widthHeight(296px, 296px);
+                animation: play 20s linear infinite;
+                &.active{
+                    animation-play-state: paused;
+                }
+                >div.record {
+                    @include recordPos();
+                }
+                >div.recordLight {
+                    @include recordPos();
+                }
+                >div.cover {
+                    @include recordPos();
+                    z-index: -1;
+                }
             }
             >div.pause {
                 @include recordPos();
