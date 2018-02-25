@@ -21,7 +21,7 @@
         <div id="bg" class="bg" ></div>
         <div class="logo"></div>
         <div class="wrapper">
-            <div id="rotate" class="rotate">
+            <div id="rotate" class="rotate active">
                 <div id="record" class="record">
                     <img src="./img/disc-ip6.png" alt="record" width=296 height=296/>
                 </div>
@@ -65,13 +65,22 @@
                 window.eventHub.emit('imgSuccess', true)
             })
         },
-        changeStatus(status) {
-            if(status === 'play'){
-                this.$el.find('#pause').addClass('active')
-                this.$el.find('#rotate').addClass('active')
-            }else if(status === 'pause'){
-                this.$el.find('#pause').removeClass('active')
-                this.$el.find('#rotate').removeClass('active')
+        createAudio(data) {
+            let audio = document.createElement('audio')
+            audio.src = data.url
+            this.$el.append(audio)
+            this.$el.find('audio')[0].addEventListener('canplaythrough', () => {
+                console.log('canplaythrough')
+                window.eventHub.emit('canPlay', true)
+            })
+        },
+        changeStatus(currentStatus) {
+            if(currentStatus === 'pause'){ // 暂停
+                this.$el.find('#pause').addClass('active') // 暂停
+                this.$el.find('#rotate').addClass('active') // 暂停
+            }else if(currentStatus === 'play'){ // 播放
+                this.$el.find('#pause').removeClass('active') // 播放
+                this.$el.find('#rotate').removeClass('active') // 播放
             }
         },
         loadingDeactive() {
@@ -101,7 +110,7 @@
         }
     }
     let controller = {
-        status: 'play',
+        currentStatus: 'pause',
         init(view, model){
             this.view = view
             this.model = model
@@ -116,12 +125,6 @@
             this.model.update().then(() => {
                 this.view.update(this.model.data)
             })
-        },
-        createAudio() {
-            let audio = document.createElement('audio')
-            audio.src = this.model.data.url
-            audio.loop = true
-            this.view.$el.append(audio)
         },
         play() {
             this.view.$el.find('audio')[0].play()
@@ -144,26 +147,29 @@
             })
         },
         changeStatus() {
-            if(this.status === 'play'){
-                this.status = 'pause'
+            if(this.currentStatus === 'play'){
+                this.currentStatus = 'pause'
                 this.pause()
-            }else{
-                this.status = 'play'
+            }else if(this.currentStatus === 'pause'){
+                this.currentStatus = 'play'
                 this.play()
             }
         },
         bindEvents() {
             this.view.$el.on('click', () => {
-                this.view.changeStatus(this.status)
                 this.changeStatus()
+                this.view.changeStatus(this.currentStatus)
             })
         },
         bindEventHub() {
             window.eventHub.on('imgSuccess', () => {
                 this.view.loadingDeactive()
-                this.createAudio()
-                this.play()
-                this.bindEvents()
+                this.view.createAudio(this.model.data)
+                window.eventHub.on('canPlay', () => {
+                    this.changeStatus()
+                    this.view.changeStatus(this.currentStatus)
+                    this.bindEvents()
+                })
             })
         }
     }
