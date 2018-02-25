@@ -2,6 +2,22 @@
     let view = {
         el: 'div#app',
         template: `
+        <div id="loading" class="loading">
+            <div class="lds-default">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
         <div id="bg" class="bg" ></div>
         <div class="logo"></div>
         <div class="wrapper">
@@ -44,11 +60,10 @@
             this.$el.html(this.template)
         },
         update(data) {
-            console.log(data)
             this.$el.find('div#bg').css({'background-image': `url(${data.cover})`})
-            this.$el.find('div#cover > img').attr('src', data.cover)
-            console.log(1111)
-
+            this.$el.find('div#cover > img').attr('src', data.cover).on('load', () => {
+                window.eventHub.emit('imgSuccess', true)
+            })
         },
         changeStatus(status) {
             if(status === 'play'){
@@ -58,6 +73,9 @@
                 this.$el.find('#pause').removeClass('active')
                 this.$el.find('#rotate').removeClass('active')
             }
+        },
+        loadingDeactive() {
+            this.$el.find('div#loading').addClass('active')
         },
         active(data) {},
         deactive(data) {}
@@ -97,9 +115,6 @@
         update() {
             this.model.update().then(() => {
                 this.view.update(this.model.data)
-                this.createAudio()
-                this.play()
-                this.bindEvents()
             })
         },
         createAudio() {
@@ -144,7 +159,12 @@
             })
         },
         bindEventHub() {
-
+            window.eventHub.on('imgSuccess', () => {
+                this.view.loadingDeactive()
+                this.createAudio()
+                this.play()
+                this.bindEvents()
+            })
         }
     }
     controller.init(view, model)
