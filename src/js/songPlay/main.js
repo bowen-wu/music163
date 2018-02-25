@@ -62,17 +62,18 @@
             this.$el.html(this.template)
         },
         update(data) {
+            console.log(data)
             this.$el.find('div#bg').css({'background-image': `url(${data.cover})`})
             this.$el.find('div#cover > img').attr('src', data.cover).on('load', () => {
                 window.eventHub.emit('imgSuccess', true)
             })
+            this.$el.find('div#showLyric>h1').text(`${data.name} - ${data.singer}`)
         },
         createAudio(data) {
             let audio = document.createElement('audio')
             audio.src = data.url
             this.$el.append(audio)
             this.$el.find('audio')[0].addEventListener('canplaythrough', () => {
-                console.log('canplaythrough')
                 window.eventHub.emit('canPlay', true)
             })
         },
