@@ -198,20 +198,26 @@ body {
             color: inherit;
             margin-left: 20px; }
             .page section > main > .editSong form > .row > label {
-              cursor: pointer; }
-              .page section > main > .editSong form > .row > label > input {
-                font-size: 16px;
-                line-height: 24px;
-                color: #333;
+              cursor: pointer;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center; }
+              .page section > main > .editSong form > .row > label > input, .page section > main > .editSong form > .row > label textarea {
                 padding: 4px 10px;
                 border-radius: 4px;
                 border: 1px solid #E1E1E2;
                 transition: all 0.2s;
+                font-size: 16px;
+                line-height: 24px;
+                color: #333;
+                margin-left: 4px;
                 width: 300px; }
-                .page section > main > .editSong form > .row > label > input:focus {
+                .page section > main > .editSong form > .row > label > input:focus, .page section > main > .editSong form > .row > label textarea:focus {
                   outline: none; }
-                .page section > main > .editSong form > .row > label > input:hover {
+                .page section > main > .editSong form > .row > label > input:hover, .page section > main > .editSong form > .row > label textarea:hover {
                   border-color: #666; }
+              .page section > main > .editSong form > .row > label > textarea {
+                resize: none; }
             .page section > main > .editSong form > .row > .submit {
               display: flex;
               justify-content: center;
@@ -219,9 +225,9 @@ body {
               font-size: 16px;
               line-height: 30px;
               color: #595959;
-              border: 1px solid #E1E1E2;
-              border-radius: 6px;
               padding: 4px 16px;
+              border-radius: 6px;
+              border: 1px solid #E1E1E2;
               transition: all 0.2s;
               cursor: pointer;
               background-color: #fff;
@@ -229,6 +235,8 @@ body {
               margin-left: 52px; }
               .page section > main > .editSong form > .row > .submit:focus {
                 outline: none; }
+              .page section > main > .editSong form > .row > .submit:hover {
+                border-color: transparent; }
               .page section > main > .editSong form > .row > .submit:hover {
                 background-color: #C62F2F;
                 color: #fff;

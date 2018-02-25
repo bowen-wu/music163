@@ -35,6 +35,16 @@
                         </label>
                     </div>
                     <div class="row">
+                        <label>封面：
+                            <input name="cover" type="text" value="{{cover}}" />
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="lyric">歌词：
+                            <textarea name="lyric" rows="4" type="text">{{lyric}}</textarea>
+                        </label>
+                    </div>
+                    <div class="row">
                         <button id="submit" type="submit" class="submit">保存</button>
                     </div>
                 </form>
@@ -43,14 +53,14 @@
             this.$el = $(this.el)
         },
         render(data = {}) { // data = {} 保证了render() 参数为空时 保底
-            let needs = 'name singer url'.split(' ')
+            let needs = 'name singer url cover lyric'.split(' ')
             let html = this.template
             needs.map(string => html = html.replace(`{{${string}}}`, data[string] || ''))
             $(this.el).html(html)
         },
         update(data) {
-            let needs = 'name singer url'.split(' ')
-            needs.map(string => $(this.el).find(`input[name=${string}]`).val(data[string]))
+            let needs = 'name singer url cover lyric'.split(' ')
+            needs.map(string => $(this.el).find(`[name=${string}]`).val(data[string] || ''))
         },
         uploadActive() {
             $(this.el).find('#upload-outer').removeClass('deactive')
@@ -76,6 +86,8 @@
                 name: '',
                 singer: '',
                 url: '',
+                cover: '',
+                lyric: '',
                 id: '',
             }
         },
@@ -85,6 +97,8 @@
             song.set('name', data.name)
             song.set('singer', data.singer)
             song.set('url', data.url)
+            song.set('cover', data.cover)
+            song.set('lyric', data.lyric)
             return song.save().then((newSong) => {
                 // 更新 this.data 方案一
                 // let {attributes:{name, singer, url}, id} = newSong
@@ -100,6 +114,8 @@
             song.set('name', data.name)
             song.set('url', data.url)
             song.set('singer', data.singer)
+            song.set('cover', data.cover)
+            song.set('lyric', data.lyric)
             return song.save().then((updateSong) => {
                 let { id, attributes } = updateSong
                 Object.assign(this.data, { id, ...attributes })
@@ -123,9 +139,9 @@
         bindEvents() {
             this.view.$el.on('click', '#submit', (e) => {
                 e.preventDefault()
-                let needs = 'name singer url'.split(' ')
+                let needs = 'name singer url cover lyric'.split(' ')
                 let data = {}
-                needs.map(string => data[string] = this.view.$el.find(`input[name=${string}]`).val())
+                needs.map(string => data[string] = this.view.$el.find(`[name=${string}]`).val())
                 if (this.model.data.id) {
                     this.model.update(data).then(() => {
                         this.view.update(this.model.data)
@@ -152,18 +168,18 @@
             })
             window.eventHub.on('editSong', (data) => {
                 this.view.editActive()
-                Object.assign(this.model.data, {...data})
+                this.model.data = data
                 this.view.update(this.model.data)
                 this.monitorUserInput()
             })
         },
         monitorUserInput() {
-            this.view.$el.on('input', 'input[type=text]', (e) => {
+            this.view.$el.on('input', '[type=text]', (e) => {
                 let userInput = {}
-                this.view.$el.find('input[type=text]').each((index, item) => {
+                this.view.$el.find('[type=text]').each((index, item) => {
                     userInput[$(item).attr('name')] = $(item).val()
                 })
-                let needs = 'name singer url'.split(' ')
+                let needs = 'name singer url cover lyric'.split(' ')
                 needs.every((it) => userInput[it] === this.model.data[it]) ?
                     window.eventHub.emit('changeSong', {}) :
                     window.eventHub.emit('changeSong', JSON.parse(JSON.stringify(this.model.data)))

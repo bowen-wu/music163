@@ -65,7 +65,7 @@
                 let data = {}
                 this.model.data.songs.some((song) => {
                     if(song.id === editSongId){
-                        Object.assign(data, {...song})
+                        data = song
                         return true
                     }
                 })

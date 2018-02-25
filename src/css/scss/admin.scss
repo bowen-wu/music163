@@ -147,37 +147,39 @@
                     >.row {
                         @include fontLineColor(16px, 60px, inherit);
                         margin-left: 20px;
+                        @mixin userInputBox($paddingVertical, $paddingLevel, $radius, $hoverBorderColor){
+                            padding: $paddingVertical $paddingLevel;
+                            border-radius: $radius;
+                            border: 1px solid #E1E1E2;
+                            transition: all 0.2s;
+                            &:focus {
+                                outline: none;
+                            }
+                            &:hover {
+                                border-color: $hoverBorderColor;
+                            }
+                        }
                         >label {
                             cursor: pointer;
-                            >input {
+                            @include flex(flex-start, center);
+                            >input, textarea {
+                                @include userInputBox(4px, 10px, 4px, #666);
                                 @include fontLineColor(16px, 24px, #333);
-                                padding: 4px 10px;
-                                border-radius: 4px;
-                                border: 1px solid #E1E1E2;
-                                transition: all 0.2s;
+                                margin-left: 4px;
                                 width: 300px;
-                                &:focus {
-                                    outline: none;
-                                }
-                                &:hover {
-                                    border-color: #666;
-                                }
+                            }
+                            >textarea {
+                                resize: none;
                             }
                         }
                         >.submit {
                             @include flex(center, center);
                             @include fontLineColor(16px, 30px, #595959);
-                            border: 1px solid #E1E1E2;
-                            border-radius: 6px;
-                            padding: 4px 16px;
-                            transition: all 0.2s;
+                            @include userInputBox(4px, 16px, 6px, transparent);
                             cursor: pointer;
                             background-color: #fff;
                             margin-top: 14px;
                             margin-left: 52px;
-                            &:focus {
-                                outline: none;
-                            }
                             &:hover {
                                 background-color: #C62F2F;
                                 color: #fff;
