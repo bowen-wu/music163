@@ -13,7 +13,6 @@
             $(this.el).html(this.template)
             let {songs} = data
             songs.map((song) => {
-                console.log($(this.el).find('ul.songList'))
                 $(this.el).find('ul.songList').append($(`
                 <li>
                     <a href=./songPlay.html?id=${song.id}>

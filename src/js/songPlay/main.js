@@ -57,13 +57,14 @@
             this.model.update().then(() => {
                 this.createAudio()
                 this.play()
+                this.bindEvents()
             })
-            this.bindEvents()
             this.bindEventHub()
         },
         createAudio() {
             let audio = document.createElement('audio')
             audio.src = this.model.data.url
+            audio.loop = true
             this.view.$el.append(audio)
         },
         play() {

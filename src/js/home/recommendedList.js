@@ -32,7 +32,6 @@
             this.bindEventHub()
         },
         bindEvents() {
-            console.log('推荐歌单')
         },
         bindEventHub() {}
     }
