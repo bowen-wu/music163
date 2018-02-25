@@ -173,7 +173,21 @@ div.app {
         flex-direction: column;
         >h1 {
             @include fontLineColor(18px, 20px, #fefefe);
-            padding-top: 18px;
+            padding: 18px 0 14px;
+        }
+        >div.lyric-wrapper{
+            @include flex(flex-start, center);
+            height: 72px;
+            overflow: hidden;
+            >div.lyric{
+                >p{
+                    @include fontLineColor(16px, 24px, hsla(0,0%,100%,.6));
+                    &.active{
+                        color: #fff;
+                        transform: scale(1.2);
+                    }
+                }
+            }
         }
     }
 }

@@ -209,4 +209,17 @@ div.app {
       font-size: 18px;
       line-height: 20px;
       color: #fefefe;
-      padding-top: 18px; }
+      padding: 18px 0 14px; }
+    div.app > div.showLyric > div.lyric-wrapper {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 72px;
+      overflow: hidden; }
+      div.app > div.showLyric > div.lyric-wrapper > div.lyric > p {
+        font-size: 16px;
+        line-height: 24px;
+        color: rgba(255, 255, 255, 0.6); }
+        div.app > div.showLyric > div.lyric-wrapper > div.lyric > p.active {
+          color: #fff;
+          transform: scale(1.2); }

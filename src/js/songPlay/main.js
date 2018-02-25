@@ -40,14 +40,38 @@
             <div class="play"></div>
         </div>
         <div id="showLyric" class="showLyric">
-            <h1>可以了</h1>
+            <h1></h1>
             <div id="lyric-wrapper" class="lyric-wrapper">
                 <div id="lyric" class="lyric">
-                    xxxxxxxx
-                    yyyyyyyyy
-                    zzzzzzzzz
-                    rrrrrrrrr
-                    ttttttttt
+                    <p>xxxxxxxx</p>
+                    <p class="active">yyyyyyyyy</p>
+                    <p>zzzzzzzzz</p>
+                    <p>rrrrrrrrr</p>
+                    <p>ttttttttt</p>
+                    <p>zzzzzzzzz</p>
+                    <p>rrrrrrrrr</p>
+                    <p>ttttttttt</p>
+                    <p>zzzzzzzzz</p>
+                    <p>rrrrrrrrr</p>
+                    <p>ttttttttt</p>
+                    <p>zzzzzzzzz</p>
+                    <p>rrrrrrrrr</p>
+                    <p>ttttttttt</p>
+                    <p>zzzzzzzzz</p>
+                    <p>rrrrrrrrr</p>
+                    <p>ttttttttt</p>
+                    <p>zzzzzzzzz</p>
+                    <p>rrrrrrrrr</p>
+                    <p>ttttttttt</p>
+                    <p>zzzzzzzzz</p>
+                    <p>rrrrrrrrr</p>
+                    <p>ttttttttt</p>
+                    <p>zzzzzzzzz</p>
+                    <p>rrrrrrrrr</p>
+                    <p>ttttttttt</p>
+                    <p>zzzzzzzzz</p>
+                    <p>rrrrrrrrr</p>
+                    <p>ttttttttt</p>
                 </div>
             </div>
         </div>
